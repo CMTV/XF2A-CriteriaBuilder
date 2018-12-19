@@ -1,0 +1,33 @@
+<xf:title>{{ phrase('confirm_action') }}</xf:title>
+
+<xf:form action="{{ link('criteria-builder/categories/delete', $category) }}" ajax="true" class="block">
+	<div class="block-container">
+		<div class="block-body">
+			<xf:inforow rowtype="confirm">
+				{{ phrase('please_confirm_that_you_want_to_delete_following:') }}
+				<strong>
+					<a href="{{ link('criteria-builder/categories/edit', $category) }}">
+						<xf:fa icon="{$category.icon}" /> {$category.title}
+					</a>
+				</strong>
+			</xf:inforow>
+			
+			<hr class="formRowSep" />
+			
+			<xf:if is="$hasCriteria">
+				<hr class="formRowSep" />
+
+				<xf:radiorow name="criteria_action" value="move">
+					<xf:option value="move" label="{{ phrase('CMTV_CB_move_criteria_to_category') }}">
+						<xf:select name="target_category">
+							<xf:options source="$toMoveCategories" />
+						</xf:select>
+					</xf:option>
+					<xf:option value="delete" label="{{ phrase('CMTV_CB_delete_category_criteria') }}" />
+				</xf:radiorow>
+			</xf:if>
+			
+		</div>
+		<xf:submitrow rowtype="simple" icon="delete" />
+	</div>
+</xf:form>

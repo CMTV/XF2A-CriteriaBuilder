@@ -1,0 +1,13 @@
+<xf:title>{$titlePhrase}</xf:title>
+
+<xf:pageaction>
+	<xf:button href="{$addUrl}" icon="add">
+		{$addPhrase}
+	</xf:button>
+</xf:pageaction>
+
+<div class="blockMessage">
+	{{ bb_code_type('XF:SimpleHtml', $emoji, null, null) }}
+	{$emptyPhrase}
+	<a href="{$addUrl}">{{ phrase('CMTV_CB_create_one') }}</a>
+</div>

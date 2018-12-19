@@ -1,0 +1,1 @@
+Options: max length, icon, default value, username autocomplete and regex match.

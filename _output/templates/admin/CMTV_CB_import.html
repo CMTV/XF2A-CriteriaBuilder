@@ -1,0 +1,10 @@
+<xf:title>{{ phrase('CMTV_CB_import_criteria') }}</xf:title>
+
+<xf:form action="{{ link('criteria-builder/import/resolve') }}" upload="true" class="block">
+	<div class="block-container">
+		<div class="block-body">
+			<xf:uploadrow name="upload" label="{{ phrase('CMTV_CB_import_upgrade_from_xml') }}" accept=".xml" />
+		</div>
+		<xf:submitrow fa="fa-code-merge" submit="{{ phrase('CMTV_CB_resolve...') }}" />
+	</div>
+</xf:form>

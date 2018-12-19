@@ -1,0 +1,7 @@
+<xf:selectrow name="{$name}{{ $options.multiselect ? '[]' : '' }}" 
+			  value="{{ $value ?: '' }}" multiple="{{ $options.multiselect ? 'multiple' : '' }}"
+			  size="{{ $options.multiselect ? '7' : '' }}" label="{$paramTitle}">
+	
+	<xf:option value="">{{ phrase('all_user_groups') }}</xf:option>
+	<xf:options source="$userGroups" />
+</xf:selectrow>

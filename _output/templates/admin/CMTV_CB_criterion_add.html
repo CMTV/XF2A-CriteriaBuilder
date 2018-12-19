@@ -1,0 +1,38 @@
+<xf:title>{{ phrase('CMTV_CB_add_criterion') }}</xf:title>
+
+<xf:form action="{{ link('criteria-builder/criteria/save', $criterion) }}" ajax="true" class="block">
+	<div class="block-container">
+		<div class="block-body">
+			<xf:macro template="CMTV_CB_persistent_id_macros" name="persistent_id"
+					  arg-id="{$criterion.criterion_id}" arg-label="{{ phrase('CMTV_CB_criterion_id') }}"
+					  arg-name="criterion_id" arg-maxLength="{{ max_length($criterion, 'criterion_id') }}"
+					  arg-editable="{$criterion.isInsert()}" />
+			
+			<xf:textboxrow name="title" value="{{ $criterion.exists() ? $criterion.MasterTitle.phrase_text : '' }}"
+						   label="{{ phrase('title') }}" />
+
+			<xf:selectrow name="criteria_type" value="{$criterion.criteria_type}"
+						  label="{{ phrase('CMTV_CB_criteria_type') }}" explain="{{ phrase('CMTV_CB_criteria_type_explain') }}">
+				<xf:foreach loop="$criteriaTypes" key="$key" value="$criteriaType">
+					<xf:option value="{$key}">{$criteriaType.phrase}</xf:option>
+				</xf:foreach>
+			</xf:selectrow>
+
+			<xf:textarearow name="description" value="{{ $criterion.exists() ? $criterion.MasterDescription.phrase_text : '' }}" autosize="true"
+							label="{{ phrase('description') }}" hint="{{ phrase('you_may_use_html') }}" />
+
+			<xf:selectrow name="category_id" label="{{ phrase('CMTV_CB_criteria_category') }}" value="{$criterion.category_id}">
+				<xf:options source="$categories" />
+			</xf:selectrow>
+
+			<xf:macro template="display_order_macros" name="row"
+					  arg-value="{$criterion.display_order}" />
+		</div>
+				
+		<xf:submitrow>
+			<xf:html>
+				<xf:button type="submit" fa="fa-arrow-right">Next</xf:button>
+			</xf:html>
+		</xf:submitrow>
+	</div>
+</xf:form>

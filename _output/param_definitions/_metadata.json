@@ -1,0 +1,26 @@
+{
+    "date_time.json": {
+        "hash": "48286281c3b3d12928192b4f651fc2c6"
+    },
+    "forum_select.json": {
+        "hash": "7e9c1d00f92772627420bd17608b3d89"
+    },
+    "number_box.json": {
+        "hash": "64a5b36a6bcb50933492e0a80285d086"
+    },
+    "reaction_select.json": {
+        "hash": "5c57c34a31b064fa49571d8460c0ae25"
+    },
+    "switcher.json": {
+        "hash": "1a880682a43503d1ca0c6e9e72db7d36"
+    },
+    "text_box.json": {
+        "hash": "78028e53c846e91a4c7645c14468872b"
+    },
+    "thread_prefix_select.json": {
+        "hash": "6abad765247f53b88588b700ee95bd16"
+    },
+    "user_group_select.json": {
+        "hash": "e04c091cab425a95465f38f11f68afb0"
+    }
+}

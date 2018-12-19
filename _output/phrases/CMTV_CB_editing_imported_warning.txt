@@ -1,0 +1,1 @@
+This is an imported criterion! Do not edit it if you plan to use author updates in the future.<br><strong>Code and params changes will be lost</strong> when upgrading this criterion!

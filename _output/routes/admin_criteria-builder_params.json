@@ -1,0 +1,11 @@
+{
+    "route_type": "admin",
+    "route_prefix": "criteria-builder",
+    "sub_name": "params",
+    "format": "params/:str<criterion_id>/:str<param_id>/",
+    "build_class": "",
+    "build_method": "",
+    "controller": "CMTV\\CriteriaBuilder:Param",
+    "context": "CMTV_CB_params",
+    "action_prefix": ""
+}

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<param_definitions>
+  <param_definition definition_id="date_time" definition_class="\CMTV\CriteriaBuilder\Param\DateTime" icon="fa-clock" display_order="80"/>
+  <param_definition definition_id="forum_select" definition_class="\CMTV\CriteriaBuilder\Param\ForumSelect" icon="fa-comments" display_order="40"/>
+  <param_definition definition_id="number_box" definition_class="\CMTV\CriteriaBuilder\Param\NumberBox" icon="fa-sort-numeric-down" display_order="20"/>
+  <param_definition definition_id="reaction_select" definition_class="\CMTV\CriteriaBuilder\Param\ReactionSelect" icon="fa-laugh-squint" display_order="70"/>
+  <param_definition definition_id="switcher" definition_class="\CMTV\CriteriaBuilder\Param\Switcher" icon="fa-check-square" display_order="30"/>
+  <param_definition definition_id="text_box" definition_class="\CMTV\CriteriaBuilder\Param\TextBox" icon="fa-font" display_order="10"/>
+  <param_definition definition_id="thread_prefix_select" definition_class="\CMTV\CriteriaBuilder\Param\ThreadPrefixSelect" icon="fa-indent" display_order="60"/>
+  <param_definition definition_id="user_group_select" definition_class="\CMTV\CriteriaBuilder\Param\UserGroupSelect" icon="fa-users" display_order="50"/>
+</param_definitions>

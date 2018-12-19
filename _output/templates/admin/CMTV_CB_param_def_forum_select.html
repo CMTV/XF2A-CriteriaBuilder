@@ -1,0 +1,11 @@
+<xf:selectrow name="{$name}{{ $options.multiselect ? '[]' : '' }}"
+			  value="{{ $value ?: '' }}" multiple="{{ $options.multiselect ? 'multiple' : '' }}"
+			  size="{{ $options.multiselect ? '7' : '' }}" label="{$paramTitle}">
+	
+	<xf:option value="">{{ phrase('all_forums') }}</xf:option>
+	<xf:foreach loop="$nodeTree.getFlattened(0)" value="$treeEntry">
+		<xf:option value="{$treeEntry.record.node_id}" disabled="{{ $treeEntry.record.node_type_id != 'Forum' }}">
+			{{ repeat('&nbsp;&nbsp;', $treeEntry.depth)|raw }} {$treeEntry.record.title}
+		</xf:option>
+	</xf:foreach>
+</xf:selectrow>

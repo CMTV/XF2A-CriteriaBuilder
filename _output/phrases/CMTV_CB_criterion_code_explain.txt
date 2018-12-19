@@ -1,0 +1,1 @@
+Plain, non-wrapped PHP code. Perform only criterion related checkings and nothing else! <strong>NEVER</strong> write/delete database data, update entities, run jobs and etc!

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<phrases>
+  <phrase title="CMTV_CB_add_criterion" version_id="1000070" version_string="1.0.0"><![CDATA[Add criterion]]></phrase>
+  <phrase title="CMTV_CB_add_param" version_id="1000070" version_string="1.0.0"><![CDATA[Add param]]></phrase>
+  <phrase title="CMTV_CB_add_param_definition" version_id="1000070" version_string="1.0.0"><![CDATA[Add param definition]]></phrase>
+  <phrase title="CMTV_CB_addon" version_id="1000070" version_string="1.0.0"><![CDATA[AddOn]]></phrase>
+  <phrase title="CMTV_CB_category_criteria_count_rebuild" version_id="1000070" version_string="1.0.0"><![CDATA[Category criteria count rebuild]]></phrase>
+  <phrase title="CMTV_CB_category_id" version_id="1000070" version_string="1.0.0"><![CDATA[Category ID]]></phrase>
+  <phrase title="CMTV_CB_category_title_uncategorised" version_id="1000070" version_string="1.0.0"><![CDATA[Uncategorised criteria]]></phrase>
+  <phrase title="CMTV_CB_choose_param_type" version_id="1000070" version_string="1.0.0"><![CDATA[Choose param type]]></phrase>
+  <phrase title="CMTV_CB_counting_criteria_in_categories" version_id="1000070" version_string="1.0.0"><![CDATA[Counting criteria in categories]]></phrase>
+  <phrase title="CMTV_CB_create_one" version_id="1000070" version_string="1.0.0"><![CDATA[Create one]]></phrase>
+  <phrase title="CMTV_CB_criteria" version_id="1000070" version_string="1.0.0"><![CDATA[Criteria]]></phrase>
+  <phrase title="CMTV_CB_criteria_categories" version_id="1000070" version_string="1.0.0"><![CDATA[Criteria categories]]></phrase>
+  <phrase title="CMTV_CB_criteria_category" version_id="1000070" version_string="1.0.0"><![CDATA[Criteria category]]></phrase>
+  <phrase title="CMTV_CB_criteria_in_category" version_id="1000070" version_string="1.0.0"><![CDATA[Criteria in category]]></phrase>
+  <phrase title="CMTV_CB_criteria_type" version_id="1000070" version_string="1.0.0"><![CDATA[Criteria type]]></phrase>
+  <phrase title="CMTV_CB_criteria_type.page" version_id="1000070" version_string="1.0.0"><![CDATA[Page criteria]]></phrase>
+  <phrase title="CMTV_CB_criteria_type.user" version_id="1000070" version_string="1.0.0"><![CDATA[User criteria]]></phrase>
+  <phrase title="CMTV_CB_criteria_type_explain" version_id="1000070" version_string="1.0.0"><![CDATA[Defines where this criterion will be available for selection. For example, "User criteria" is used for both trophies and notices. "Page criteria" is only available for notices. You can't select "Page criteria" criteria when creating a trophy.]]></phrase>
+  <phrase title="CMTV_CB_criterion" version_id="1000070" version_string="1.0.0"><![CDATA[Criterion]]></phrase>
+  <phrase title="CMTV_CB_criterion_code_explain" version_id="1000070" version_string="1.0.0"><![CDATA[Plain, non-wrapped PHP code. Perform only criterion related checkings and nothing else! <strong>NEVER</strong> write/delete database data, update entities, run jobs and etc!]]></phrase>
+  <phrase title="CMTV_CB_criterion_description.date_time_criterion" version_id="1000070" version_string="1.0.0"><![CDATA[]]></phrase>
+  <phrase title="CMTV_CB_criterion_description.forum_select_criterion" version_id="1000070" version_string="1.0.0"><![CDATA[]]></phrase>
+  <phrase title="CMTV_CB_criterion_description.reaction_select_criterion" version_id="1000070" version_string="1.0.0"><![CDATA[]]></phrase>
+  <phrase title="CMTV_CB_criterion_description.switcher_criterion" version_id="1000070" version_string="1.0.0"><![CDATA[]]></phrase>
+  <phrase title="CMTV_CB_criterion_description.thread_prefix_select_criterion" version_id="1000070" version_string="1.0.0"><![CDATA[]]></phrase>
+  <phrase title="CMTV_CB_criterion_description.user_group_select_criterion" version_id="1000070" version_string="1.0.0"><![CDATA[]]></phrase>
+  <phrase title="CMTV_CB_criterion_id" version_id="1000070" version_string="1.0.0"><![CDATA[Criterion ID]]></phrase>
+  <phrase title="CMTV_CB_criterion_title.date_time_criterion" version_id="1000070" version_string="1.0.0"><![CDATA[Date and time criterion [READY]]]></phrase>
+  <phrase title="CMTV_CB_criterion_title.forum_select_criterion" version_id="1000070" version_string="1.0.0"><![CDATA[Forum select criterion [READY]]]></phrase>
+  <phrase title="CMTV_CB_criterion_title.reaction_select_criterion" version_id="1000070" version_string="1.0.0"><![CDATA[Reaction select criterion [READY]]]></phrase>
+  <phrase title="CMTV_CB_criterion_title.switcher_criterion" version_id="1000070" version_string="1.0.0"><![CDATA[Switcher criterion [READY]]]></phrase>
+  <phrase title="CMTV_CB_criterion_title.thread_prefix_select_criterion" version_id="1000070" version_string="1.0.0"><![CDATA[Thread prefix select criterion [READY]]]></phrase>
+  <phrase title="CMTV_CB_criterion_title.user_group_select_criterion" version_id="1000070" version_string="1.0.0"><![CDATA[User group select criterion [READY]]]></phrase>
+  <phrase title="CMTV_CB_delete_category_criteria" version_id="1000070" version_string="1.0.0"><![CDATA[Delete category criteria]]></phrase>
+  <phrase title="CMTV_CB_edit_criterion" version_id="1000070" version_string="1.0.0"><![CDATA[Edit criterion]]></phrase>
+  <phrase title="CMTV_CB_edit_param" version_id="1000070" version_string="1.0.0"><![CDATA[Edit param]]></phrase>
+  <phrase title="CMTV_CB_edit_param_definition" version_id="1000070" version_string="1.0.0"><![CDATA[Edit param definition]]></phrase>
+  <phrase title="CMTV_CB_editing_imported_warning" version_id="1000070" version_string="1.0.0"><![CDATA[This is an imported criterion! Do not edit it if you plan to use author updates in the future.<br><strong>Code and params changes will be lost</strong> when upgrading this criterion!]]></phrase>
+  <phrase title="CMTV_CB_error_criteria" version_id="1000070" version_string="1.0.0"><![CDATA[Failed]]></phrase>
+  <phrase title="CMTV_CB_error_criteria_help" version_id="1000070" version_string="1.0.0"><![CDATA[The criteria in this list will not be imported due to an errors.]]></phrase>
+  <phrase title="CMTV_CB_export_criteria" version_id="1000070" version_string="1.0.0"><![CDATA[Export criteria]]></phrase>
+  <phrase title="CMTV_CB_icon" version_id="1000070" version_string="1.0.0"><![CDATA[Font Awesome icon]]></phrase>
+  <phrase title="CMTV_CB_icon_explain" version_id="1000070" version_string="1.0.0"><![CDATA[Optional Font Awesome icon name.]]></phrase>
+  <phrase title="CMTV_CB_import_criteria" version_id="1000070" version_string="1.0.0"><![CDATA[Import criteria]]></phrase>
+  <phrase title="CMTV_CB_import_this_criterion" version_id="1000070" version_string="1.0.0"><![CDATA[Import this criterion]]></phrase>
+  <phrase title="CMTV_CB_import_upgrade_from_xml" version_id="1000070" version_string="1.0.0"><![CDATA[Import/Updgrade from XML]]></phrase>
+  <phrase title="CMTV_CB_move_criteria_to_category" version_id="1000070" version_string="1.0.0"><![CDATA[Move criteria to category]]></phrase>
+  <phrase title="CMTV_CB_multi_selection" version_id="1000070" version_string="1.0.0"><![CDATA[Multi-selection]]></phrase>
+  <phrase title="CMTV_CB_multiply_delete" version_id="1000070" version_string="1.0.0"><![CDATA[Multiply delete]]></phrase>
+  <phrase title="CMTV_CB_new_criteria" version_id="1000070" version_string="1.0.0"><![CDATA[New criteria]]></phrase>
+  <phrase title="CMTV_CB_new_criteria_help" version_id="1000070" version_string="1.0.0"><![CDATA[Selected criteria from the this list will be created on you forum.]]></phrase>
+  <phrase title="CMTV_CB_no_categories_have_been_created" version_id="1000070" version_string="1.0.0"><![CDATA[No categories have been created yet.]]></phrase>
+  <phrase title="CMTV_CB_no_criteria_have_been_created" version_id="1000070" version_string="1.0.0"><![CDATA[No criteria have been created yet.]]></phrase>
+  <phrase title="CMTV_CB_no_criteria_have_been_created_for_criteria_type_yet" version_id="1000070" version_string="1.0.0"><![CDATA[No criteria have been created for this criteria type yet.]]></phrase>
+  <phrase title="CMTV_CB_no_new_upgrade_criteria_to_import" version_id="1000070" version_string="1.0.0"><![CDATA[No new/upgrade criteria to import!]]></phrase>
+  <phrase title="CMTV_CB_no_param_definitions_have_been_created" version_id="1000070" version_string="1.0.0"><![CDATA[No param definitions have been created yet.]]></phrase>
+  <phrase title="CMTV_CB_old_icon" version_id="1000070" version_string="1.0.0"><![CDATA[Old icon]]></phrase>
+  <phrase title="CMTV_CB_old_title" version_id="1000070" version_string="1.0.0"><![CDATA[Old title]]></phrase>
+  <phrase title="CMTV_CB_page_criteria" version_id="1000070" version_string="1.0.0"><![CDATA[[CB] Page criteria]]></phrase>
+  <phrase title="CMTV_CB_param.date_time_criterion_date_time" version_id="1000070" version_string="1.0.0"><![CDATA[Date and time]]></phrase>
+  <phrase title="CMTV_CB_param.forum_select_criterion_multiselect" version_id="1000070" version_string="1.0.0"><![CDATA[Multiselect]]></phrase>
+  <phrase title="CMTV_CB_param.forum_select_criterion_single_select" version_id="1000070" version_string="1.0.0"><![CDATA[Single select]]></phrase>
+  <phrase title="CMTV_CB_param.reaction_select_criterion_reaction" version_id="1000070" version_string="1.0.0"><![CDATA[Reaction]]></phrase>
+  <phrase title="CMTV_CB_param.switcher_criterion_switcher_1" version_id="1000070" version_string="1.0.0"><![CDATA[Switcher 1]]></phrase>
+  <phrase title="CMTV_CB_param.switcher_criterion_switcher_2" version_id="1000070" version_string="1.0.0"><![CDATA[Switcher 2]]></phrase>
+  <phrase title="CMTV_CB_param.thread_prefix_select_criterion_thread_prefix" version_id="1000070" version_string="1.0.0"><![CDATA[Thread prefix]]></phrase>
+  <phrase title="CMTV_CB_param.user_group_select_criterion_user_group_multi" version_id="1000070" version_string="1.0.0"><![CDATA[User group multi]]></phrase>
+  <phrase title="CMTV_CB_param.user_group_select_criterion_user_group_single" version_id="1000070" version_string="1.0.0"><![CDATA[User group single]]></phrase>
+  <phrase title="CMTV_CB_param_def.date_time" version_id="1000070" version_string="1.0.0"><![CDATA[Date and time]]></phrase>
+  <phrase title="CMTV_CB_param_def.forum_select" version_id="1000070" version_string="1.0.0"><![CDATA[Forum select]]></phrase>
+  <phrase title="CMTV_CB_param_def.number_box" version_id="1000070" version_string="1.0.0"><![CDATA[Number box]]></phrase>
+  <phrase title="CMTV_CB_param_def.reaction_select" version_id="1000070" version_string="1.0.0"><![CDATA[Reaction select]]></phrase>
+  <phrase title="CMTV_CB_param_def.switcher" version_id="1000070" version_string="1.0.0"><![CDATA[Switcher]]></phrase>
+  <phrase title="CMTV_CB_param_def.text_box" version_id="1000070" version_string="1.0.0"><![CDATA[Text box]]></phrase>
+  <phrase title="CMTV_CB_param_def.thread_prefix_select" version_id="1000070" version_string="1.0.0"><![CDATA[Thread prefix select]]></phrase>
+  <phrase title="CMTV_CB_param_def.user_group_select" version_id="1000070" version_string="1.0.0"><![CDATA[User group select]]></phrase>
+  <phrase title="CMTV_CB_param_def_desc.date_time" version_id="1000070" version_string="1.0.0"><![CDATA[No options.]]></phrase>
+  <phrase title="CMTV_CB_param_def_desc.forum_select" version_id="1000070" version_string="1.0.0"><![CDATA[Option: mulsti/single select.]]></phrase>
+  <phrase title="CMTV_CB_param_def_desc.number_box" version_id="1000070" version_string="1.0.0"><![CDATA[Options: min and max values, default value, step.]]></phrase>
+  <phrase title="CMTV_CB_param_def_desc.reaction_select" version_id="1000070" version_string="1.0.0"><![CDATA[No options.]]></phrase>
+  <phrase title="CMTV_CB_param_def_desc.switcher" version_id="1000070" version_string="1.0.0"><![CDATA[Option: enabled by default.]]></phrase>
+  <phrase title="CMTV_CB_param_def_desc.text_box" version_id="1000070" version_string="1.0.0"><![CDATA[Options: max length, icon, default value, username autocomplete and regex match.]]></phrase>
+  <phrase title="CMTV_CB_param_def_desc.thread_prefix_select" version_id="1000070" version_string="1.0.0"><![CDATA[No options.]]></phrase>
+  <phrase title="CMTV_CB_param_def_desc.user_group_select" version_id="1000070" version_string="1.0.0"><![CDATA[Option: multi/single select.]]></phrase>
+  <phrase title="CMTV_CB_param_definition_class_explain" version_id="1000070" version_string="1.0.0"><![CDATA[Must derive from <code>\CMTV\CriteriaBuilder\Param\AbstractParam</code>.]]></phrase>
+  <phrase title="CMTV_CB_param_definitions" version_id="1000070" version_string="1.0.0"><![CDATA[Param definitions]]></phrase>
+  <phrase title="CMTV_CB_param_id" version_id="1000070" version_string="1.0.0"><![CDATA[Param ID]]></phrase>
+  <phrase title="CMTV_CB_param_id_explain" version_id="1000070" version_string="1.0.0"><![CDATA[Used to retrieve param value in criterion code. Must be unique for current criterion. It can't be changed once set.]]></phrase>
+  <phrase title="CMTV_CB_param_id_must_be_unique_for_criterion" version_id="1000070" version_string="1.0.0"><![CDATA[Param ID must be unique for current criterion.]]></phrase>
+  <phrase title="CMTV_CB_param_type" version_id="1000070" version_string="1.0.0"><![CDATA[Param type]]></phrase>
+  <phrase title="CMTV_CB_params" version_id="1000070" version_string="1.0.0"><![CDATA[Params]]></phrase>
+  <phrase title="CMTV_CB_please_select_at_least_one_criterion_to_export" version_id="1000070" version_string="1.0.0"><![CDATA[Please select at least one criterion to export.]]></phrase>
+  <phrase title="CMTV_CB_please_upload_valid_criteria_xml_file" version_id="1000070" version_string="1.0.0"><![CDATA[Please upload a valid criteria XML file.]]></phrase>
+  <phrase title="CMTV_CB_resolve" version_id="1000070" version_string="1.0.0"><![CDATA[Resolve]]></phrase>
+  <phrase title="CMTV_CB_resolving" version_id="1000070" version_string="1.0.0"><![CDATA[Resolving]]></phrase>
+  <phrase title="CMTV_CB_selected_available" version_id="1000070" version_string="1.0.0"><![CDATA[Selected / Available]]></phrase>
+  <phrase title="CMTV_CB_selected_criteria" version_id="1000070" version_string="1.0.0"><![CDATA[Selected criteria]]></phrase>
+  <phrase title="CMTV_CB_step" version_id="1000070" version_string="1.0.0"><![CDATA[Step]]></phrase>
+  <phrase title="CMTV_CB_unique_id_explain" version_id="1000070" version_string="1.0.0"><![CDATA[This is the unique identifier. It cannot be changed once set.]]></phrase>
+  <phrase title="CMTV_CB_unknown_param_definition_x" version_id="1000070" version_string="1.0.0"><![CDATA[Unknown param definition "{definition}"!]]></phrase>
+  <phrase title="CMTV_CB_upgrade_criteria" version_id="1000070" version_string="1.0.0"><![CDATA[Upgrade criteria]]></phrase>
+  <phrase title="CMTV_CB_upgrade_criteria_help" version_id="1000070" version_string="1.0.0"><![CDATA[Criteria in this list already exist on this forum. Select which criteria you want to upgrade. Only code and options will be upgraded.]]></phrase>
+  <phrase title="CMTV_CB_user_criteria" version_id="1000070" version_string="1.0.0"><![CDATA[[CB] User criteria]]></phrase>
+  <phrase title="CMTV_CB_username_autocomplete" version_id="1000070" version_string="1.0.0"><![CDATA[Username autocomplete]]></phrase>
+  <phrase title="CMTV_CB_x_criteria_type_not_supported" version_id="1000070" version_string="1.0.0"><![CDATA["{type}" criteria type is not supported!]]></phrase>
+  <phrase title="admin_navigation.CMTV_CB" version_id="1000070" version_string="1.0.0"><![CDATA[Criteria Builder]]></phrase>
+  <phrase title="admin_navigation.CMTV_CB_categories" version_id="1000070" version_string="1.0.0"><![CDATA[Categories]]></phrase>
+  <phrase title="admin_navigation.CMTV_CB_criteria" version_id="1000070" version_string="1.0.0"><![CDATA[Criteria]]></phrase>
+  <phrase title="admin_navigation.CMTV_CB_export" version_id="1000070" version_string="1.0.0"><![CDATA[Export]]></phrase>
+  <phrase title="admin_navigation.CMTV_CB_import" version_id="1000070" version_string="1.0.0"><![CDATA[Import]]></phrase>
+  <phrase title="admin_navigation.CMTV_CB_import_export" version_id="1000070" version_string="1.0.0"><![CDATA[Import & Export]]></phrase>
+  <phrase title="admin_navigation.CMTV_CB_params" version_id="1000070" version_string="1.0.0"><![CDATA[Param definitions]]></phrase>
+  <phrase title="admin_permission.CMTV_CB_categories" version_id="1000070" version_string="1.0.0"><![CDATA[Manage criteria categories]]></phrase>
+  <phrase title="admin_permission.CMTV_CB_criteria" version_id="1000070" version_string="1.0.0"><![CDATA[Manage criteria]]></phrase>
+  <phrase title="admin_permission.CMTV_CB_import_export" version_id="1000070" version_string="1.0.0"><![CDATA[Import & Export criteria]]></phrase>
+  <phrase title="admin_permission.CMTV_CB_params" version_id="1000070" version_string="1.0.0"><![CDATA[Manage criteria params]]></phrase>
+  <phrase title="data_passed_into_create_param_config_should_either_be_array_or_entity" version_id="1000070" version_string="1.0.0"><![CDATA[Data passed into create ParamConfig should either be an array or Entity]]></phrase>
+</phrases>

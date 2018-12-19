@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<admin_permission>
+  <admin_permission admin_permission_id="CMTV_CB_categories" display_order="5020"/>
+  <admin_permission admin_permission_id="CMTV_CB_criteria" display_order="5010"/>
+  <admin_permission admin_permission_id="CMTV_CB_import_export" display_order="5040"/>
+  <admin_permission admin_permission_id="CMTV_CB_params" display_order="5030"/>
+</admin_permission>

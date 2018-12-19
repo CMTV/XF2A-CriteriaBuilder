@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<code_events>
+  <event event_id="CMTV_CB_criteria_types"><![CDATA[<p>Allows the modification of the list of supported criteria types as defined in <code>CMTV\CriteriaBuilder\Data\CriteriaTypes</code>. This allows you to add support of your custom criteria types to Criteria Builder addon.</p>
+
+<p>Callback signature:</p>
+<blockquote><code>&amp;$types</code></blockquote>
+
+<p>Arguments:</p>
+<ol>
+	<li><code>&amp;$types</code> - Array of types which can be modified.</li>
+</ol>]]></event>
+</code_events>

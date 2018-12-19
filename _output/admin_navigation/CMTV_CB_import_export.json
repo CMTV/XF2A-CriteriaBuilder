@@ -1,0 +1,10 @@
+{
+    "parent_navigation_id": "CMTV_CB",
+    "display_order": 400,
+    "link": "",
+    "icon": "fa-box-open",
+    "admin_permission_id": "",
+    "debug_only": false,
+    "development_only": false,
+    "hide_no_children": true
+}

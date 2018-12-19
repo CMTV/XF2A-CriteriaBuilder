@@ -1,0 +1,9 @@
+<xf:datarow
+			data-id="{$param.criterion_id}-{$param.param_id}"
+			icon="{$param.Definition.icon} fa-1x"
+			label="{$param.title}"
+			hint="{$param.param_id}"
+			overlay="true"
+			data-cache="false"
+			href="{{ link('criteria-builder/params/edit', $param) }}"
+			delete="{{ link('criteria-builder/params/delete', $param) }}" />

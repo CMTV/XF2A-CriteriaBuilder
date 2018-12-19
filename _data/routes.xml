@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<routes>
+  <route route_type="admin" route_prefix="criteria-builder" controller="CMTV\CriteriaBuilder:CriteriaBuilder" context="CMTV_CB"/>
+  <route route_type="admin" route_prefix="criteria-builder" sub_name="categories" format="categories/:str&lt;category_id&gt;/" controller="CMTV\CriteriaBuilder:Category" context="CMTV_CB_categories"/>
+  <route route_type="admin" route_prefix="criteria-builder" sub_name="criteria" format="criteria/:str&lt;criterion_id&gt;/" controller="CMTV\CriteriaBuilder:Criterion" context="CMTV_CB_criteria"/>
+  <route route_type="admin" route_prefix="criteria-builder" sub_name="export" format="export/" controller="CMTV\CriteriaBuilder:Export" context="CMTV_CB_export"/>
+  <route route_type="admin" route_prefix="criteria-builder" sub_name="import" format="import/" controller="CMTV\CriteriaBuilder:Import" context="CMTV_CB_import"/>
+  <route route_type="admin" route_prefix="criteria-builder" sub_name="params" format="params/:str&lt;criterion_id&gt;/:str&lt;param_id&gt;/" controller="CMTV\CriteriaBuilder:Param" context="CMTV_CB_params"/>
+  <route route_type="admin" route_prefix="criteria-builder" sub_name="params/definitions" format="params/definitions/:str&lt;definition_id&gt;/" controller="CMTV\CriteriaBuilder:ParamDefinition" context="CMTV_CB_params"/>
+</routes>

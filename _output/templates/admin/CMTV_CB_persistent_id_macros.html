@@ -1,0 +1,21 @@
+<xf:macro name="persistent_id" 
+		  arg-id="!"
+		  arg-label="!"
+		  arg-name="!"
+		  arg-maxLength=""
+		  arg-editable="{{ false }}" 
+		  arg-fullWidth="{{ false }}"
+		  arg-explain="{{ false }}">
+	
+	<xf:if is="$editable">
+		<xf:textboxrow name="{$name}" maxlength="{$maxLength}" rowtype="{{ $fullWidth ? 'fullWidth' : '' }}"
+					   label="{$label}" explain="{{ $explain ?:  phrase('CMTV_CB_unique_id_explain') }}"
+					   dir="ltr" />
+	<xf:else />
+		<xf:formrow label="{$label}" explain="{{ $explain ?: phrase('CMTV_CB_unique_id_explain') }}"
+					rowtype="{{ $fullWidth ? 'fullWidth' : '' }}">
+			<span class="u-ltr"><strong>{$id}</strong></span>
+		</xf:formrow>
+	</xf:if>
+		
+</xf:macro>

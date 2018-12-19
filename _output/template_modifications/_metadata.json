@@ -1,0 +1,17 @@
+{
+    "admin/CMTV_CB_helper_criteria_page_pane.json": {
+        "hash": "e626749d84e17e52fd28dab67f9e827a"
+    },
+    "admin/CMTV_CB_helper_criteria_page_tab.json": {
+        "hash": "e0978282964c72e38fd50e3075e95d81"
+    },
+    "admin/CMTV_CB_helper_criteria_user_pane.json": {
+        "hash": "2765198c2355ca7117f8237a5d24243a"
+    },
+    "admin/CMTV_CB_helper_criteria_user_tab.json": {
+        "hash": "f4ba235ff5e7a2346565cf27225b0d7b"
+    },
+    "admin/CMTV_CB_tools_rebuild.json": {
+        "hash": "f3ddbd6f0a716376496ab77facc259bf"
+    }
+}

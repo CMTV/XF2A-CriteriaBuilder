@@ -1,0 +1,3 @@
+{
+    "description": "<p>Allows the modification of the list of supported criteria types as defined in <code>CMTV\\CriteriaBuilder\\Data\\CriteriaTypes</code>. This allows you to add support of your custom criteria types to Criteria Builder addon.</p>\n\n<p>Callback signature:</p>\n<blockquote><code>&amp;$types</code></blockquote>\n\n<p>Arguments:</p>\n<ol>\n\t<li><code>&amp;$types</code> - Array of types which can be modified.</li>\n</ol>"
+}

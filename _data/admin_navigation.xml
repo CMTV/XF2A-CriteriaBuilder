@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<admin_navigation>
+  <admin_navigation_entry navigation_id="CMTV_CB" display_order="15010" link="criteria-builder" icon="fa-filter" debug_only="0" development_only="0" hide_no_children="1"/>
+  <admin_navigation_entry navigation_id="CMTV_CB_categories" parent_navigation_id="CMTV_CB" display_order="200" link="criteria-builder/categories" admin_permission_id="CMTV_CB_categories" debug_only="0" development_only="0" hide_no_children="0"/>
+  <admin_navigation_entry navigation_id="CMTV_CB_criteria" parent_navigation_id="CMTV_CB" display_order="100" link="criteria-builder/criteria" admin_permission_id="CMTV_CB_criteria" debug_only="0" development_only="0" hide_no_children="0"/>
+  <admin_navigation_entry navigation_id="CMTV_CB_export" parent_navigation_id="CMTV_CB_import_export" display_order="20" link="criteria-builder/export" admin_permission_id="CMTV_CB_import_export" debug_only="0" development_only="0" hide_no_children="0"/>
+  <admin_navigation_entry navigation_id="CMTV_CB_import" parent_navigation_id="CMTV_CB_import_export" display_order="10" link="criteria-builder/import" admin_permission_id="CMTV_CB_import_export" debug_only="0" development_only="0" hide_no_children="0"/>
+  <admin_navigation_entry navigation_id="CMTV_CB_import_export" parent_navigation_id="CMTV_CB" display_order="400" icon="fa-box-open" debug_only="0" development_only="0" hide_no_children="1"/>
+  <admin_navigation_entry navigation_id="CMTV_CB_params" parent_navigation_id="CMTV_CB" display_order="300" link="criteria-builder/params/definitions" admin_permission_id="CMTV_CB_params" debug_only="1" development_only="0" hide_no_children="0"/>
+</admin_navigation>

@@ -1,0 +1,36 @@
+[data-xf-init="param-showcase"]
+{
+	display: flex;
+	padding-bottom: @xf-paddingLargest;
+	
+	.param-quick-view
+	{
+		display: inline-block;
+		.xf-bbCodeInlineCode();
+		font-family: @xf-fontFamilyCode;
+		line-height: @xf-lineHeightDefault;
+		box-decoration-break: clone;
+		-webkit-box-decoration-break: clone;
+		
+		&:not(:last-of-type)
+		{
+			margin-right: @xf-paddingMedium;
+		}
+	}
+}
+
+[data-menu="add-param-menu"] .param-definition-list
+{
+	max-height: 250px;
+	overflow-y: auto;
+	
+	.dataList-mainRow
+	{
+		font-weight: normal;
+	}
+	
+	.dataList-cell a
+	{
+		color: @xf-textColor;
+	}
+}

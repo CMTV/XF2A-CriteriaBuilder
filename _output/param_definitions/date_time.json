@@ -1,0 +1,5 @@
+{
+    "definition_class": "\\CMTV\\CriteriaBuilder\\Param\\DateTime",
+    "icon": "fa-clock",
+    "display_order": 80
+}

@@ -1,0 +1,9 @@
+<xf:checkboxrow name="{$name}" label="{$paramTitle}">
+	<xf:foreach loop="$reactions" value="$reaction" class="SDF">
+		<xf:option name="{$name}[{$reaction.reaction_id}]" selected="{$value.{$reaction.reaction_id}}">
+			<xf:label>
+				<xf:reaction id="{$reaction}" showtitle="true" />
+			</xf:label>
+		</xf:option>
+	</xf:foreach>
+</xf:checkboxrow>

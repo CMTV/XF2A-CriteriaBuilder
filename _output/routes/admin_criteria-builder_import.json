@@ -1,0 +1,11 @@
+{
+    "route_type": "admin",
+    "route_prefix": "criteria-builder",
+    "sub_name": "import",
+    "format": "import/",
+    "build_class": "",
+    "build_method": "",
+    "controller": "CMTV\\CriteriaBuilder:Import",
+    "context": "CMTV_CB_import",
+    "action_prefix": ""
+}

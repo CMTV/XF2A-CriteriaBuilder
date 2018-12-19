@@ -1,0 +1,56 @@
+<xf:title>{{ phrase('CMTV_CB_export_criteria') }}</xf:title>
+
+<xf:css src="CMTV_CB_list.less" />
+
+<xf:form action="{{ link('criteria-builder/export/proceed') }}"
+		 data-sp-checkbox=".dataList-cell--toggle input:checkbox"
+		 data-sp-container=".dataList-row">
+
+	<xf:foreach loop="$criteriaTypes" key="$criteriaTypeId" value="$criteriaType">
+		<div class="block">
+			<div class="block-container">
+				<h2 class="block-header">{$criteriaType.phrase}</h2>
+				
+				<div class="block-body">
+					<xf:datalist>
+						<xf:foreach loop="{$criteria.{$criteriaTypeId}}" key="$categoryId" value="$criteria">
+							<tbody class="dataList-rowGroup">
+								<xf:if is="!$categoryId">
+									<xf:set var="$categoryId" value="0" />
+								</xf:if>
+								
+								<xf:set var="$category" value="{$categories.{$categoryId}}" />
+								
+								<xf:datarow rowclass="category" rowtype="subsection">
+									<xf:cell class="dataList-cell--min">
+										<xf:checkbox standalone="true"><xf:option check-all="< .dataList-rowGroup" /></xf:checkbox>
+									</xf:cell>
+									<xf:cell href="{{ $categoryId !== '0' ? link('criteria-builder/categories/edit', $category) : '' }}">
+										<xf:fa icon="{$category.icon}" class="icon" /><span class="title">{$category.title}</span>
+									</xf:cell>
+								</xf:datarow>
+								
+								<xf:foreach loop="$criteria" value="$criterion">
+									<xf:datarow>
+										<xf:toggle name="export[]" value="{$criterion.criterion_id}" />
+										<xf:cell href="{{ link('criteria-builder/criteria/edit', $criterion) }}">{$criterion.title}</xf:cell>
+									</xf:datarow>
+								</xf:foreach>
+							</tbody>
+						</xf:foreach>
+					</xf:datalist>
+				</div>
+			</div>
+		</div>
+	</xf:foreach>
+	
+	<div class="block">
+		<div class="block-container">
+			<div class="block-footer block-footer--split">
+				<div class="block-footer-main"></div>
+				<xf:button type="submit" icon="export" />
+			</div>
+		</div>
+	</div>
+	
+</xf:form>

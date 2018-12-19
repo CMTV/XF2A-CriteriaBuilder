@@ -1,0 +1,9 @@
+{
+    "event_id": "criteria_page",
+    "execute_order": 10,
+    "callback_class": "CMTV\\CriteriaBuilder\\EventListener",
+    "callback_method": "criteriaPage",
+    "active": true,
+    "hint": "",
+    "description": "Handling Criteria Builder page criteria"
+}

@@ -1,0 +1,12 @@
+{
+    "additional_files": [
+        "js/CMTV/CriteriaBuilder"
+    ],
+    "minify": [
+        "js/CMTV/CriteriaBuilder/sort.js",
+        "js/CMTV/CriteriaBuilder/ajax-sort.js",
+        "js/CMTV/CriteriaBuilder/params-edit.js",
+        "js/CMTV/CriteriaBuilder/criteria.js",
+        "js/CMTV/CriteriaBuilder/checked-counter.js"
+    ]
+}

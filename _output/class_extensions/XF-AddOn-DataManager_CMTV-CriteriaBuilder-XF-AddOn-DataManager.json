@@ -1,0 +1,6 @@
+{
+    "from_class": "XF\\AddOn\\DataManager",
+    "to_class": "CMTV\\CriteriaBuilder\\XF\\AddOn\\DataManager",
+    "execute_order": 10,
+    "active": true
+}

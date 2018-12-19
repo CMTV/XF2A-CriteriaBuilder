@@ -1,0 +1,77 @@
+<xf:title>{{ phrase('CMTV_CB_criteria') }}</xf:title>
+
+<xf:pageaction>
+	<xf:button href="{{ link('criteria-builder/criteria/add') }}" icon="add">
+		{{ phrase('CMTV_CB_add_criterion') }}
+	</xf:button>
+</xf:pageaction>
+
+<xf:css src="CMTV_CB_list.less" />
+
+<xf:js src="xf/sort.js, vendor/dragula/dragula.js"/>
+<xf:js prod="CMTV/CriteriaBuilder/sort.min.js" dev="CMTV/CriteriaBuilder/sort.js" addon="CMTV/CriteriaBuilder" />
+<xf:js prod="CMTV/CriteriaBuilder/ajax-sort.min.js" dev="CMTV/CriteriaBuilder/ajax-sort.js" addon="CMTV/CriteriaBuilder" />
+<xf:css src="public:dragula.less"/>
+
+<div class="block">
+	<div class="block-container">
+
+		<h2 class="block-tabHeader tabs hScroller" data-xf-init="h-scroller tabs" role="tablist">
+			<span class="hScroller-scroll">
+				<xf:foreach loop="$criteriaTypes" key="$key" value="$criteriaType">
+					<a class="tabs-tab {{ ($key == 'user') ? 'is-active' : '' }}" tabindex="0" aria-controls="{$key}">
+						{$criteriaType.phrase}
+					</a>
+				</xf:foreach>
+			</span>
+		</h2>
+
+		<ul class="block-body tabPanes">
+			<xf:foreach loop="$criteriaTypes" key="$criteriaTypeId" value="$criteriaType">
+				<li class="{{ ($criteriaTypeId == 'user') ? 'is-active' : '' }}" role="tabpanel" id="{$criteriaTypeId}">
+					<xf:datalist data-sort-url="{{ link('criteria-builder/criteria/ajaxSort') }}">
+						<xf:foreach loop="{$criteria.{$criteriaTypeId}}" key="$categoryId" value="$criteriaCategory">
+							<tbody class="dataList-rowGroup" data-xf-init="CMTV-CB-list-sorter ajax-sorter" 
+								   data-drag-handle="tr" data-sort-url="{{ link('criteria-builder/criteria/ajaxSort') }}" >
+								<xf:macro name="category" 
+										  arg-categories="{$categories}" 
+										  arg-category="{$categories.{$categoryId}}" />
+
+								<xf:foreach loop="{$criteria.{$criteriaTypeId}.{$categoryId}}" value="$criterion">
+									<xf:macro name="criterion"
+											  arg-criterion="{$criterion}" />
+								</xf:foreach>
+							</tbody>
+						</xf:foreach>
+					</xf:datalist>
+				</li>
+			</xf:foreach>
+		</ul>
+		
+		<div class="block-footer">
+			<span class="block-footer-counter">{{ display_totals($totalCriteria) }}</span>
+		</div>
+		
+	</div>
+</div>
+
+<xf:macro name="category" arg-categories="!" arg-category="!">
+	<xf:if is="!$category">
+		<xf:set var="$category" value="{$categories.0}" />
+	</xf:if>
+	
+	<xf:datarow rowclass="category is-undraggable js-blockDragbefore" rowtype="subsection">
+		<xf:cell colspan="2">
+			<xf:fa icon="{$category.icon}" class="icon" /><span class="title">{$category.title}</span>
+		</xf:cell>
+	</xf:datarow>
+</xf:macro>
+
+<xf:macro name="criterion" arg-criterion="!">
+	<xf:datarow data-id="{$criterion.category_id}-{$criterion.criterion_id}">
+		<xf:cell href="{{ link('criteria-builder/criteria/edit', $criterion) }}">
+			{$criterion.title}
+		</xf:cell>
+		<xf:delete href="{{ link('criteria-builder/criteria/delete', $criterion) }}" />
+	</xf:datarow>
+</xf:macro>

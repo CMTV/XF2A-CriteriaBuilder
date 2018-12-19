@@ -1,0 +1,126 @@
+<xf:title>{{ phrase('CMTV_CB_edit_criterion:') }} {$criterion.title|htmlspecialchars}</xf:title>
+
+<xf:pageaction>
+	<xf:button href="{{ link('criteria-builder/criteria/delete', $criterion) }}" overlay="true" icon="delete" />
+</xf:pageaction>
+
+<xf:if is="$criterion.is_imported">
+	<div class="blockMessage blockMessage--warning blockMessage--iconic">
+		{{ phrase('CMTV_CB_editing_imported_warning') }}
+	</div>
+</xf:if>
+
+<xf:js src="xf/sort.js, vendor/dragula/dragula.js"/>
+<xf:js prod="CMTV/CriteriaBuilder/sort.min.js" dev="CMTV/CriteriaBuilder/sort.js" addon="CMTV/CriteriaBuilder" />
+<xf:js prod="CMTV/CriteriaBuilder/ajax-sort.min.js" dev="CMTV/CriteriaBuilder/ajax-sort.js" addon="CMTV/CriteriaBuilder" />
+<xf:css src="public:dragula.less"/>
+
+<xf:css src="CMTV_CB_criterion_edit.less" />
+<xf:js prod="CMTV/CriteriaBuilder/params-edit.min.js" dev="CMTV/CriteriaBuilder/params-edit.js" addon="CMTV/CriteriaBuilder" />
+
+<xf:form action="{{ link('criteria-builder/criteria/save', $criterion) }}" ajax="true" class="block">
+	<div class="block-container">
+		
+		<h2 class="block-tabHeader tabs hScroller" data-xf-init="h-scroller tabs" role="tablist">
+			<span class="hScroller-scroll">
+				<a class="tabs-tab is-active" role="tab" tabindex="0" aria-controls="criterion">{{ phrase('CMTV_CB_criterion') }}</a>
+				<a class="tabs-tab" role="tab" tabindex="0" aria-controls="criterion-params">{{ phrase('CMTV_CB_params') }}</a>
+			</span>
+		</h2>
+		
+		<ul class="block-body tabPanes">
+			<li class="is-active" role="tabpanel" id="criterion">
+				<xf:macro name="criterion_pane" 
+						  arg-criterion="{$criterion}" 
+						  arg-categories="{$categories}"
+						  arg-criteriaTypes="{$criteriaTypes}" />
+			</li>
+			<li role="tabpanel" id="criterion-params">
+				<xf:macro name="criterion_params_pane"
+						  arg-criterion="{$criterion}"
+						  arg-paramDefinitions="{$paramDefinitions}" />
+			</li>
+		</ul>
+		
+		<xf:submitrow icon="save" class="js-submitButton" data-ajax-redirect="{{ $criterion.isInsert() ? '1' : '0' }}">
+			<xf:html>
+				<xf:button type="submit" name="exit" icon="save">{{ phrase('save_and_exit') }}</xf:button>
+			</xf:html>
+		</xf:submitrow>
+	</div>
+</xf:form>
+
+<xf:macro name="criterion_pane" arg-criterion="!" arg-categories="!" arg-criteriaTypes="!">
+	
+	<xf:macro template="CMTV_CB_persistent_id_macros" name="persistent_id"
+			  arg-id="{$criterion.criterion_id}" arg-label="{{ phrase('CMTV_CB_criterion_id') }}"
+			  arg-name="criterion_id" arg-maxLength="{{ max_length($criterion, 'criterion_id') }}"
+			  arg-editable="{$criterion.isInsert()}" arg-fullWidth="fullWidth" />
+	
+	<xf:formrow rowtype="fullWidth" explain="{{ phrase('CMTV_CB_criterion_code_explain') }}">
+		<div data-xf-init="param-showcase" data-quick-view-url="{{ link('criteria-builder/params/quickView') }}">
+			<xf:foreach loop="$criterion.params" value="$param">
+				{$param.renderQuickView()|raw}
+			</xf:foreach>
+		</div>
+		
+		<xf:codeeditor name="code" value="{$criterion.code}" mode="php" data-submit-selector=".js-submitButton" label="{{ phrase('CMTV_CB_criterion_code') }}" />
+	</xf:formrow>
+	
+	<xf:textboxrow name="title" value="{{ $criterion.exists() ? $criterion.MasterTitle.phrase_text : '' }}"
+				   label="{{ phrase('title') }}" />
+	
+	<xf:selectrow name="criteria_type" value="{$criterion.criteria_type}"
+				  label="{{ phrase('CMTV_CB_criteria_type') }}" explain="{{ phrase('CMTV_CB_criteria_type_explain') }}">
+		<xf:foreach loop="$criteriaTypes" key="$key" value="$criteriaType">
+			<xf:option value="{$key}">{$criteriaType.phrase}</xf:option>
+		</xf:foreach>
+	</xf:selectrow>
+	
+	<xf:textarearow name="description" value="{{ $criterion.exists() ? $criterion.MasterDescription.phrase_text : '' }}" autosize="true"
+					label="{{ phrase('description') }}" hint="{{ phrase('you_may_use_html') }}" />
+		
+	<xf:selectrow name="category_id" label="{{ phrase('CMTV_CB_criteria_category') }}" value="{$criterion.category_id}">
+		<xf:options source="$categories" />
+	</xf:selectrow>
+
+	<xf:macro template="display_order_macros" name="row"
+			  arg-value="{$criterion.display_order}" />
+
+</xf:macro>
+		  
+<xf:macro name="criterion_params_pane" arg-criterion="!" arg-paramDefinitions="!">
+	<div class="dataList params" data-xf-init="params CMTV-CB-list-sorter ajax-sorter"
+		 data-container=".dataList-table tbody"
+		 data-drag-handle="tr" 
+		 data-sort-url="{{ link('criteria-builder/params/ajaxSort') }}">
+		<table class="dataList-table">
+			<tbody>
+				<xf:foreach loop="$criterion.params" value="$param">
+					{$param.renderEditRow()|raw}
+				</xf:foreach>
+			</tbody>
+		</table>
+	</div>
+	
+	<div class="block-footer block-footer--split params-controls">
+		<div class="block-footer-main"></div>
+
+		<xf:button icon="add" data-xf-click="menu">{{ phrase('CMTV_CB_add_param') }}</xf:button>
+		<div class="menu" data-menu="add-param-menu" aria-hidden="true">
+			<div class="menu-content">
+				<h4 class="menu-header">{{ phrase('CMTV_CB_choose_param_type') }}</h4>
+				<xf:datalist class="param-definition-list">
+					<xf:foreach loop="$paramDefinitions" value="$definition">
+						<xf:datarow
+									label="{$definition.title}"
+									href="{{ link('criteria-builder/params/add', $criterion, { 'definition_id': $definition.definition_id }) }}"
+									overlay="true"
+									data-cache="false"
+									icon="{$definition.icon} fa-1x" />
+					</xf:foreach>
+				</xf:datalist>
+			</div>
+		</div>
+	</div>
+</xf:macro>

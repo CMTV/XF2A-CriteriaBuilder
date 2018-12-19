@@ -1,0 +1,11 @@
+<xf:foreach loop="$transferArray.getAttributes()" key="$key" value="$value">
+	<xf:if is="!in_array($key, $except)">
+		<xf:hiddenval name="{$container}[{$key}]">{$value}</xf:hiddenval>
+	</xf:if>
+</xf:foreach>
+
+<xf:foreach loop="$transferArray.getCData()" key="$key" value="$value">
+	<xf:if is="!in_array($key, $except)">
+		<textarea name="{$container}[{$key}]" style="display: none;">{$value}</textarea>
+	</xf:if>
+</xf:foreach>

@@ -1,0 +1,1274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+  <template type="admin" title="CMTV_CB_category_delete" version_id="1000070" version_string="1.0.0"><![CDATA[<xf:title>{{ phrase('confirm_action') }}</xf:title>
+
+<xf:form action="{{ link('criteria-builder/categories/delete', $category) }}" ajax="true" class="block">
+	<div class="block-container">
+		<div class="block-body">
+			<xf:inforow rowtype="confirm">
+				{{ phrase('please_confirm_that_you_want_to_delete_following:') }}
+				<strong>
+					<a href="{{ link('criteria-builder/categories/edit', $category) }}">
+						<xf:fa icon="{$category.icon}" /> {$category.title}
+					</a>
+				</strong>
+			</xf:inforow>
+			
+			<hr class="formRowSep" />
+			
+			<xf:if is="$hasCriteria">
+				<hr class="formRowSep" />
+
+				<xf:radiorow name="criteria_action" value="move">
+					<xf:option value="move" label="{{ phrase('CMTV_CB_move_criteria_to_category') }}">
+						<xf:select name="target_category">
+							<xf:options source="$toMoveCategories" />
+						</xf:select>
+					</xf:option>
+					<xf:option value="delete" label="{{ phrase('CMTV_CB_delete_category_criteria') }}" />
+				</xf:radiorow>
+			</xf:if>
+			
+		</div>
+		<xf:submitrow rowtype="simple" icon="delete" />
+	</div>
+</xf:form>]]></template>
+  <template type="admin" title="CMTV_CB_category_edit" version_id="1000070" version_string="1.0.0"><![CDATA[<xf:if is="$category.isInsert()">
+	<xf:title>{{ phrase('add_category') }}</xf:title>
+<xf:else />
+	<xf:title>{{ phrase('edit_category:') }} {$category.title}</xf:title>
+</xf:if>
+
+<xf:pageaction if="$category.isUpdate()">
+	<xf:button href="{{ link('criteria-builder/categories/delete', $category) }}" icon="delete" overlay="true" />
+</xf:pageaction>
+
+<xf:form action="{{ link('criteria-builder/categories/save', $category) }}" class="block" ajax="true">
+	<div class="block-container">
+		<div class="block-body">
+			
+			<xf:macro template="CMTV_CB_persistent_id_macros" name="persistent_id"
+					  arg-id="{$category.category_id}" arg-label="{{ phrase('CMTV_CB_category_id') }}"
+					  arg-name="category_id" arg-maxLength="{{ max_length($category, 'category_id') }}"
+					  arg-editable="{$category.isInsert()}" />
+			
+			<hr class="formRowSep" />
+			
+			<xf:textboxrow name="title" value="{{ $category.category_id ? $category.MasterTitle.phrase_text : '' }}"
+						   label="{{ phrase('title') }}" />
+
+			<xf:macro template="display_order_macros" name="row"
+					  arg-value="{$category.display_order}" />
+			
+			<xf:textboxrow name="icon" value="{{ $category.exists() ? $category.icon : '' }}"
+						   maxlength="{{ max_length($category, 'icon') }}" fa="{{ $category.icon ?: '' }}"
+						   label="{{ phrase('CMTV_CB_icon') }}" explain="{{ phrase('CMTV_CB_icon_explain') }}" />
+		</div>
+		
+		<xf:submitrow sticky="true" icon="save" />
+	</div>
+</xf:form>]]></template>
+  <template type="admin" title="CMTV_CB_category_list" version_id="1000070" version_string="1.0.0"><![CDATA[<xf:title>{{ phrase('CMTV_CB_criteria_categories') }}</xf:title>
+
+<xf:pageaction>
+	<xf:button href="{{ link('criteria-builder/categories/add') }}" icon="add">
+		{{ phrase('add_category') }}
+	</xf:button>
+</xf:pageaction>
+
+<xf:css src="CMTV_CB_list.less" />
+
+<xf:js src="xf/sort.js, vendor/dragula/dragula.js"/>
+<xf:js prod="CMTV/CriteriaBuilder/sort.min.js" dev="CMTV/CriteriaBuilder/sort.js" addon="CMTV/CriteriaBuilder" />
+<xf:js prod="CMTV/CriteriaBuilder/ajax-sort.min.js" dev="CMTV/CriteriaBuilder/ajax-sort.js" addon="CMTV/CriteriaBuilder" />
+<xf:css src="public:dragula.less"/>
+
+<div class="block">
+	<div class="block-outer">
+		<xf:macro template="filter_macros" name="quick_filter" arg-key="categories" arg-class="block-outer-opposite" />
+	</div>
+	<div class="block-container">
+		<div class="block-body">
+			<xf:datalist data-xf-init="CMTV-CB-list-sorter ajax-sorter"
+						 data-container=".dataList-table tbody"
+						 data-drag-handle="tr" 
+						 data-sort-url="{{ link('criteria-builder/categories/ajaxSort') }}">
+				<xf:foreach loop="$categories" value="$category">
+					<xf:datarow
+							rowclass="category"
+							data-id="{$category.category_id}"
+							label="{$category.title}"
+							hint="{$category.category_id}"
+							href="{{ link('criteria-builder/categories/edit', $category) }}"
+							delete="{{ link('criteria-builder/categories/delete', $category) }}" 
+							icon="{$category.icon} fa-1x">
+						<xf:cell class="dataList-cell--min cell-extra" href="{{ link('criteria-builder/categories/edit', $category) }}"
+								 data-xf-init="tooltip" title="{{ phrase('CMTV_CB_criteria_in_category') }}">
+							<xf:fa icon="fa-filter" /> {$category.criteria}
+						</xf:cell>
+					</xf:datarow>
+				</xf:foreach>
+			</xf:datalist>
+		</div>
+		<div class="block-footer">
+			<span class="block-footer-counter">{{ display_totals($categories) }}</span>
+		</div>
+	</div>
+</div>]]></template>
+  <template type="admin" title="CMTV_CB_criteria.less" version_id="1000070" version_string="1.0.0"><![CDATA[.category
+{
+	.icon
+	{
+		padding-right: @xf-paddingLarge;
+	}
+	
+	.selected-counter
+	{
+		font-size: @xf-fontSizeSmaller;
+		color: @xf-textColorMuted;
+		
+		margin-left: @xf-paddingMedium;
+		
+		i
+		{
+			padding-right: @xf-paddingSmall;
+		}
+	}
+}
+
+.criterion 
+{
+	.formRowSep:first-of-type,
+	& + .formRowSep
+	{
+		margin: 0;
+	}
+	
+	&:not(.selected) .formRowSep:first-of-type
+	{
+		display: none;
+	}
+	
+	& > .formRow dt,
+	& > .formRow dd,
+	.options > .formRow dt
+	{
+		transition: background .2s;
+	}
+	
+	&.selected
+	{
+		& > .formRow
+		{
+			dt
+			{
+				background: @xf-blockTabHeaderTextColor;
+			}
+			
+			dd
+			{
+				background: @xf-majorHeadingBg;
+			}
+		}
+				
+		.options > .formRow dt
+		{
+			background: @xf-majorHeadingBg;
+		}
+	}
+}]]></template>
+  <template type="admin" title="CMTV_CB_criterion_add" version_id="1000070" version_string="1.0.0"><![CDATA[<xf:title>{{ phrase('CMTV_CB_add_criterion') }}</xf:title>
+
+<xf:form action="{{ link('criteria-builder/criteria/save', $criterion) }}" ajax="true" class="block">
+	<div class="block-container">
+		<div class="block-body">
+			<xf:macro template="CMTV_CB_persistent_id_macros" name="persistent_id"
+					  arg-id="{$criterion.criterion_id}" arg-label="{{ phrase('CMTV_CB_criterion_id') }}"
+					  arg-name="criterion_id" arg-maxLength="{{ max_length($criterion, 'criterion_id') }}"
+					  arg-editable="{$criterion.isInsert()}" />
+			
+			<xf:textboxrow name="title" value="{{ $criterion.exists() ? $criterion.MasterTitle.phrase_text : '' }}"
+						   label="{{ phrase('title') }}" />
+
+			<xf:selectrow name="criteria_type" value="{$criterion.criteria_type}"
+						  label="{{ phrase('CMTV_CB_criteria_type') }}" explain="{{ phrase('CMTV_CB_criteria_type_explain') }}">
+				<xf:foreach loop="$criteriaTypes" key="$key" value="$criteriaType">
+					<xf:option value="{$key}">{$criteriaType.phrase}</xf:option>
+				</xf:foreach>
+			</xf:selectrow>
+
+			<xf:textarearow name="description" value="{{ $criterion.exists() ? $criterion.MasterDescription.phrase_text : '' }}" autosize="true"
+							label="{{ phrase('description') }}" hint="{{ phrase('you_may_use_html') }}" />
+
+			<xf:selectrow name="category_id" label="{{ phrase('CMTV_CB_criteria_category') }}" value="{$criterion.category_id}">
+				<xf:options source="$categories" />
+			</xf:selectrow>
+
+			<xf:macro template="display_order_macros" name="row"
+					  arg-value="{$criterion.display_order}" />
+		</div>
+				
+		<xf:submitrow>
+			<xf:html>
+				<xf:button type="submit" fa="fa-arrow-right">Next</xf:button>
+			</xf:html>
+		</xf:submitrow>
+	</div>
+</xf:form>]]></template>
+  <template type="admin" title="CMTV_CB_criterion_edit" version_id="1000070" version_string="1.0.0"><![CDATA[<xf:title>{{ phrase('CMTV_CB_edit_criterion:') }} {$criterion.title|htmlspecialchars}</xf:title>
+
+<xf:pageaction>
+	<xf:button href="{{ link('criteria-builder/criteria/delete', $criterion) }}" overlay="true" icon="delete" />
+</xf:pageaction>
+
+<xf:if is="$criterion.is_imported">
+	<div class="blockMessage blockMessage--warning blockMessage--iconic">
+		{{ phrase('CMTV_CB_editing_imported_warning') }}
+	</div>
+</xf:if>
+
+<xf:js src="xf/sort.js, vendor/dragula/dragula.js"/>
+<xf:js prod="CMTV/CriteriaBuilder/sort.min.js" dev="CMTV/CriteriaBuilder/sort.js" addon="CMTV/CriteriaBuilder" />
+<xf:js prod="CMTV/CriteriaBuilder/ajax-sort.min.js" dev="CMTV/CriteriaBuilder/ajax-sort.js" addon="CMTV/CriteriaBuilder" />
+<xf:css src="public:dragula.less"/>
+
+<xf:css src="CMTV_CB_criterion_edit.less" />
+<xf:js prod="CMTV/CriteriaBuilder/params-edit.min.js" dev="CMTV/CriteriaBuilder/params-edit.js" addon="CMTV/CriteriaBuilder" />
+
+<xf:form action="{{ link('criteria-builder/criteria/save', $criterion) }}" ajax="true" class="block">
+	<div class="block-container">
+		
+		<h2 class="block-tabHeader tabs hScroller" data-xf-init="h-scroller tabs" role="tablist">
+			<span class="hScroller-scroll">
+				<a class="tabs-tab is-active" role="tab" tabindex="0" aria-controls="criterion">{{ phrase('CMTV_CB_criterion') }}</a>
+				<a class="tabs-tab" role="tab" tabindex="0" aria-controls="criterion-params">{{ phrase('CMTV_CB_params') }}</a>
+			</span>
+		</h2>
+		
+		<ul class="block-body tabPanes">
+			<li class="is-active" role="tabpanel" id="criterion">
+				<xf:macro name="criterion_pane" 
+						  arg-criterion="{$criterion}" 
+						  arg-categories="{$categories}"
+						  arg-criteriaTypes="{$criteriaTypes}" />
+			</li>
+			<li role="tabpanel" id="criterion-params">
+				<xf:macro name="criterion_params_pane"
+						  arg-criterion="{$criterion}"
+						  arg-paramDefinitions="{$paramDefinitions}" />
+			</li>
+		</ul>
+		
+		<xf:submitrow icon="save" class="js-submitButton" data-ajax-redirect="{{ $criterion.isInsert() ? '1' : '0' }}">
+			<xf:html>
+				<xf:button type="submit" name="exit" icon="save">{{ phrase('save_and_exit') }}</xf:button>
+			</xf:html>
+		</xf:submitrow>
+	</div>
+</xf:form>
+
+<xf:macro name="criterion_pane" arg-criterion="!" arg-categories="!" arg-criteriaTypes="!">
+	
+	<xf:macro template="CMTV_CB_persistent_id_macros" name="persistent_id"
+			  arg-id="{$criterion.criterion_id}" arg-label="{{ phrase('CMTV_CB_criterion_id') }}"
+			  arg-name="criterion_id" arg-maxLength="{{ max_length($criterion, 'criterion_id') }}"
+			  arg-editable="{$criterion.isInsert()}" arg-fullWidth="fullWidth" />
+	
+	<xf:formrow rowtype="fullWidth" explain="{{ phrase('CMTV_CB_criterion_code_explain') }}">
+		<div data-xf-init="param-showcase" data-quick-view-url="{{ link('criteria-builder/params/quickView') }}">
+			<xf:foreach loop="$criterion.params" value="$param">
+				{$param.renderQuickView()|raw}
+			</xf:foreach>
+		</div>
+		
+		<xf:codeeditor name="code" value="{$criterion.code}" mode="php" data-submit-selector=".js-submitButton" label="{{ phrase('CMTV_CB_criterion_code') }}" />
+	</xf:formrow>
+	
+	<xf:textboxrow name="title" value="{{ $criterion.exists() ? $criterion.MasterTitle.phrase_text : '' }}"
+				   label="{{ phrase('title') }}" />
+	
+	<xf:selectrow name="criteria_type" value="{$criterion.criteria_type}"
+				  label="{{ phrase('CMTV_CB_criteria_type') }}" explain="{{ phrase('CMTV_CB_criteria_type_explain') }}">
+		<xf:foreach loop="$criteriaTypes" key="$key" value="$criteriaType">
+			<xf:option value="{$key}">{$criteriaType.phrase}</xf:option>
+		</xf:foreach>
+	</xf:selectrow>
+	
+	<xf:textarearow name="description" value="{{ $criterion.exists() ? $criterion.MasterDescription.phrase_text : '' }}" autosize="true"
+					label="{{ phrase('description') }}" hint="{{ phrase('you_may_use_html') }}" />
+		
+	<xf:selectrow name="category_id" label="{{ phrase('CMTV_CB_criteria_category') }}" value="{$criterion.category_id}">
+		<xf:options source="$categories" />
+	</xf:selectrow>
+
+	<xf:macro template="display_order_macros" name="row"
+			  arg-value="{$criterion.display_order}" />
+
+</xf:macro>
+		  
+<xf:macro name="criterion_params_pane" arg-criterion="!" arg-paramDefinitions="!">
+	<div class="dataList params" data-xf-init="params CMTV-CB-list-sorter ajax-sorter"
+		 data-container=".dataList-table tbody"
+		 data-drag-handle="tr" 
+		 data-sort-url="{{ link('criteria-builder/params/ajaxSort') }}">
+		<table class="dataList-table">
+			<tbody>
+				<xf:foreach loop="$criterion.params" value="$param">
+					{$param.renderEditRow()|raw}
+				</xf:foreach>
+			</tbody>
+		</table>
+	</div>
+	
+	<div class="block-footer block-footer--split params-controls">
+		<div class="block-footer-main"></div>
+
+		<xf:button icon="add" data-xf-click="menu">{{ phrase('CMTV_CB_add_param') }}</xf:button>
+		<div class="menu" data-menu="add-param-menu" aria-hidden="true">
+			<div class="menu-content">
+				<h4 class="menu-header">{{ phrase('CMTV_CB_choose_param_type') }}</h4>
+				<xf:datalist class="param-definition-list">
+					<xf:foreach loop="$paramDefinitions" value="$definition">
+						<xf:datarow
+									label="{$definition.title}"
+									href="{{ link('criteria-builder/params/add', $criterion, { 'definition_id': $definition.definition_id }) }}"
+									overlay="true"
+									data-cache="false"
+									icon="{$definition.icon} fa-1x" />
+					</xf:foreach>
+				</xf:datalist>
+			</div>
+		</div>
+	</div>
+</xf:macro>]]></template>
+  <template type="admin" title="CMTV_CB_criterion_edit.less" version_id="1000070" version_string="1.0.0"><![CDATA[[data-xf-init="param-showcase"]
+{
+	display: flex;
+	padding-bottom: @xf-paddingLargest;
+	
+	.param-quick-view
+	{
+		display: inline-block;
+		.xf-bbCodeInlineCode();
+		font-family: @xf-fontFamilyCode;
+		line-height: @xf-lineHeightDefault;
+		box-decoration-break: clone;
+		-webkit-box-decoration-break: clone;
+		
+		&:not(:last-of-type)
+		{
+			margin-right: @xf-paddingMedium;
+		}
+	}
+}
+
+[data-menu="add-param-menu"] .param-definition-list
+{
+	max-height: 250px;
+	overflow-y: auto;
+	
+	.dataList-mainRow
+	{
+		font-weight: normal;
+	}
+	
+	.dataList-cell a
+	{
+		color: @xf-textColor;
+	}
+}]]></template>
+  <template type="admin" title="CMTV_CB_criterion_list" version_id="1000070" version_string="1.0.0"><![CDATA[<xf:title>{{ phrase('CMTV_CB_criteria') }}</xf:title>
+
+<xf:pageaction>
+	<xf:button href="{{ link('criteria-builder/criteria/add') }}" icon="add">
+		{{ phrase('CMTV_CB_add_criterion') }}
+	</xf:button>
+</xf:pageaction>
+
+<xf:css src="CMTV_CB_list.less" />
+
+<xf:js src="xf/sort.js, vendor/dragula/dragula.js"/>
+<xf:js prod="CMTV/CriteriaBuilder/sort.min.js" dev="CMTV/CriteriaBuilder/sort.js" addon="CMTV/CriteriaBuilder" />
+<xf:js prod="CMTV/CriteriaBuilder/ajax-sort.min.js" dev="CMTV/CriteriaBuilder/ajax-sort.js" addon="CMTV/CriteriaBuilder" />
+<xf:css src="public:dragula.less"/>
+
+<div class="block">
+	<div class="block-container">
+
+		<h2 class="block-tabHeader tabs hScroller" data-xf-init="h-scroller tabs" role="tablist">
+			<span class="hScroller-scroll">
+				<xf:foreach loop="$criteriaTypes" key="$key" value="$criteriaType">
+					<a class="tabs-tab {{ ($key == 'user') ? 'is-active' : '' }}" tabindex="0" aria-controls="{$key}">
+						{$criteriaType.phrase}
+					</a>
+				</xf:foreach>
+			</span>
+		</h2>
+
+		<ul class="block-body tabPanes">
+			<xf:foreach loop="$criteriaTypes" key="$criteriaTypeId" value="$criteriaType">
+				<li class="{{ ($criteriaTypeId == 'user') ? 'is-active' : '' }}" role="tabpanel" id="{$criteriaTypeId}">
+					<xf:datalist data-sort-url="{{ link('criteria-builder/criteria/ajaxSort') }}">
+						<xf:foreach loop="{$criteria.{$criteriaTypeId}}" key="$categoryId" value="$criteriaCategory">
+							<tbody class="dataList-rowGroup" data-xf-init="CMTV-CB-list-sorter ajax-sorter" 
+								   data-drag-handle="tr" data-sort-url="{{ link('criteria-builder/criteria/ajaxSort') }}" >
+								<xf:macro name="category" 
+										  arg-categories="{$categories}" 
+										  arg-category="{$categories.{$categoryId}}" />
+
+								<xf:foreach loop="{$criteria.{$criteriaTypeId}.{$categoryId}}" value="$criterion">
+									<xf:macro name="criterion"
+											  arg-criterion="{$criterion}" />
+								</xf:foreach>
+							</tbody>
+						</xf:foreach>
+					</xf:datalist>
+				</li>
+			</xf:foreach>
+		</ul>
+		
+		<div class="block-footer">
+			<span class="block-footer-counter">{{ display_totals($totalCriteria) }}</span>
+		</div>
+		
+	</div>
+</div>
+
+<xf:macro name="category" arg-categories="!" arg-category="!">
+	<xf:if is="!$category">
+		<xf:set var="$category" value="{$categories.0}" />
+	</xf:if>
+	
+	<xf:datarow rowclass="category is-undraggable js-blockDragbefore" rowtype="subsection">
+		<xf:cell colspan="2">
+			<xf:fa icon="{$category.icon}" class="icon" /><span class="title">{$category.title}</span>
+		</xf:cell>
+	</xf:datarow>
+</xf:macro>
+
+<xf:macro name="criterion" arg-criterion="!">
+	<xf:datarow data-id="{$criterion.category_id}-{$criterion.criterion_id}">
+		<xf:cell href="{{ link('criteria-builder/criteria/edit', $criterion) }}">
+			{$criterion.title}
+		</xf:cell>
+		<xf:delete href="{{ link('criteria-builder/criteria/delete', $criterion) }}" />
+	</xf:datarow>
+</xf:macro>]]></template>
+  <template type="admin" title="CMTV_CB_export" version_id="1000070" version_string="1.0.0"><![CDATA[<xf:title>{{ phrase('CMTV_CB_export_criteria') }}</xf:title>
+
+<xf:css src="CMTV_CB_list.less" />
+
+<xf:form action="{{ link('criteria-builder/export/proceed') }}"
+		 data-sp-checkbox=".dataList-cell--toggle input:checkbox"
+		 data-sp-container=".dataList-row">
+
+	<xf:foreach loop="$criteriaTypes" key="$criteriaTypeId" value="$criteriaType">
+		<div class="block">
+			<div class="block-container">
+				<h2 class="block-header">{$criteriaType.phrase}</h2>
+				
+				<div class="block-body">
+					<xf:datalist>
+						<xf:foreach loop="{$criteria.{$criteriaTypeId}}" key="$categoryId" value="$criteria">
+							<tbody class="dataList-rowGroup">
+								<xf:if is="!$categoryId">
+									<xf:set var="$categoryId" value="0" />
+								</xf:if>
+								
+								<xf:set var="$category" value="{$categories.{$categoryId}}" />
+								
+								<xf:datarow rowclass="category" rowtype="subsection">
+									<xf:cell class="dataList-cell--min">
+										<xf:checkbox standalone="true"><xf:option check-all="< .dataList-rowGroup" /></xf:checkbox>
+									</xf:cell>
+									<xf:cell href="{{ $categoryId !== '0' ? link('criteria-builder/categories/edit', $category) : '' }}">
+										<xf:fa icon="{$category.icon}" class="icon" /><span class="title">{$category.title}</span>
+									</xf:cell>
+								</xf:datarow>
+								
+								<xf:foreach loop="$criteria" value="$criterion">
+									<xf:datarow>
+										<xf:toggle name="export[]" value="{$criterion.criterion_id}" />
+										<xf:cell href="{{ link('criteria-builder/criteria/edit', $criterion) }}">{$criterion.title}</xf:cell>
+									</xf:datarow>
+								</xf:foreach>
+							</tbody>
+						</xf:foreach>
+					</xf:datalist>
+				</div>
+			</div>
+		</div>
+	</xf:foreach>
+	
+	<div class="block">
+		<div class="block-container">
+			<div class="block-footer block-footer--split">
+				<div class="block-footer-main"></div>
+				<xf:button type="submit" icon="export" />
+			</div>
+		</div>
+	</div>
+	
+</xf:form>]]></template>
+  <template type="admin" title="CMTV_CB_helper_criteria" version_id="1000070" version_string="1.0.0"><![CDATA[<xf:macro name="tab" arg-criteriaType="!" arg-tabName="!">
+	<a class="tabs-tab{{ $active == ('CMTV_CB_' . $criteriaType) ? 'is-active' : '' }}" role="tab" tabindex="0" aria-controls="{{ unique_id('CMTV_CB_' . $criteriaType) }}">
+		{$tabName}
+	</a>
+</xf:macro>
+
+<xf:macro name="pane" arg-criteriaType="!" arg-criteriaInput="!" arg-criteria="!" arg-data="!">
+	<li class="{{ $active == ('CMTV_CB_' . $criteriaType) ? 'is-active' : '' }}" role="tabpanel" id="{{ unique_id('CMTV_CB_' . $criteriaType) }}">
+		<xf:macro name="criteria" 
+				  arg-criteriaType="{$criteriaType}" 
+				  arg-criteriaInput="{$criteriaInput}" 
+				  arg-criteria="{$criteria}" 
+				  arg-data="{$data}" />
+	</li>
+</xf:macro>
+
+<xf:macro name="criteria" arg-criteriaType="!" arg-criteriaInput="!" arg-criteria="!" arg-data="!">
+	<xf:css src="CMTV_CB_criteria.less" />
+
+	<xf:js prod="CMTV/CriteriaBuilder/checked-counter.min.js, CMTV/CriteriaBuilder/criteria.min.js" 
+		   dev="CMTV/CriteriaBuilder/checked-counter.js, CMTV/CriteriaBuilder/criteria.js" addon="CMTV/CriteriaBuilder" />
+	
+	<xf:set var="$criteriaData" value="{$data.CMTV_CB.{$criteriaType}}" />
+
+	<xf:if is="$criteriaData.criteria is not empty">
+		<xf:foreach loop="$criteriaData.categories" key="$categoryId" value="$category">
+			<xf:if is="$categoryId === 0">
+				<xf:set var="$categoryId" value="" />
+			</xf:if>
+
+			<xf:if is="{$criteriaData.criteria.{$categoryId}}">
+				<xf:macro name="category"
+						  arg-criteriaInput="{$criteriaInput}"
+						  arg-category="{$category}" 
+						  arg-categoryCriteria="{$criteriaData.criteria.{$categoryId}}"
+						  arg-criteria="{$criteria}"
+						  arg-data="{$data}" />
+			</xf:if>
+		</xf:foreach>
+	<xf:else />
+		<div class="blockMessage">{{ phrase('CMTV_CB_no_criteria_have_been_created_for_criteria_type_yet') }}</div>
+	</xf:if>
+</xf:macro>
+
+<xf:macro name="category" arg-criteriaInput="!" arg-category="!" arg-categoryCriteria="!" arg-criteria="!" arg-data="!">
+	<div class="criteria-category" data-xf-init="checked-counter" 
+		 data-hide-zero="true"
+		 data-checkbox=".criterion-checkbox:checkbox"
+		 data-counter-container=".selected-counter"
+		 data-counter-value=".counter">
+		
+		<h3 class="block-formSectionHeader category">
+			<span class="collapseTrigger collapseTrigger--block" data-xf-click="toggle" data-target="< :up:next">
+				<span class="block-formSectionHeader-aligner">
+					<xf:fa icon="{$category.icon}" class="icon" /><span class="title">{$category.title}</span>
+					<span class="selected-counter" data-xf-init="tooltip" title="{{ phrase('CMTV_CB_selected_criteria') }}">
+						<xf:fa icon="fa-check-square" /><span class="counter">999</span>
+					</span>
+				</span>
+			</span>
+		</h3>
+		<div class="criteria-container block-body block-body--collapsible">
+			<xf:foreach loop="$categoryCriteria" value="$criterion">
+				<xf:macro name="criterion"
+						  arg-criteriaInput="{$criteriaInput}"
+						  arg-criterion="{$criterion}"
+						  arg-criteria="{$criteria}"
+						  arg-data="{$data}" />
+			</xf:foreach>
+		</div>
+	</div>
+</xf:macro>
+
+<xf:macro name="criterion" arg-criteriaInput="!" arg-criterion="!" arg-criteria="!" arg-data="!">
+	<xf:set var="$criterionName" value="CMTV_CB_{$criterion.criterion_id}" />
+	<div class="criterion {{ $criteria.{$criterionName} ? 'selected' : '' }}" data-xf-init="criterion">
+		<xf:checkboxrow label="{$criterion.title}">
+			<xf:option name="{$criteriaInput}[{$criterionName}][rule]" value="{$criterionName}"
+					   selected="{$criteria.{$criterionName}}"
+					   class="criterion-checkbox"
+					   label="{$criterion.description}" />
+		</xf:checkboxrow>
+
+		<xf:if is="$criterion.params is not empty">
+			<hr class="formRowSep" />
+			
+			<div class="options">
+				<xf:foreach loop="$criterion.params" value="$param">
+					{$param.render($criteriaInput, $criterionName, $criteria, $data)|raw}
+				</xf:foreach>
+			</div>
+		</xf:if>
+	</div>
+
+	<hr class="formRowSep" />
+</xf:macro>]]></template>
+  <template type="admin" title="CMTV_CB_import" version_id="1000070" version_string="1.0.0"><![CDATA[<xf:title>{{ phrase('CMTV_CB_import_criteria') }}</xf:title>
+
+<xf:form action="{{ link('criteria-builder/import/resolve') }}" upload="true" class="block">
+	<div class="block-container">
+		<div class="block-body">
+			<xf:uploadrow name="upload" label="{{ phrase('CMTV_CB_import_upgrade_from_xml') }}" accept=".xml" />
+		</div>
+		<xf:submitrow fa="fa-code-merge" submit="{{ phrase('CMTV_CB_resolve...') }}" />
+	</div>
+</xf:form>]]></template>
+  <template type="admin" title="CMTV_CB_import_resolving" version_id="1000070" version_string="1.0.0"><![CDATA[<xf:title>{{ phrase('CMTV_CB_resolving') }}</xf:title>
+
+<xf:css src="CMTV_CB_list.less" />
+<xf:css src="CMTV_CB_import_resolving.less" />
+
+<xf:js prod="CMTV/CriteriaBuilder/checked-counter.min.js" dev="CMTV/CriteriaBuilder/checked-counter.js" addon="CMTV/CriteriaBuilder" />
+
+<xf:form action="{{ link('criteria-builder/import/confirm') }}" data-json-name="json">
+	
+	<div class="input-data">
+		<div class="new-categories">
+			<xf:foreach loop="$newCategories" value="$newCategory">
+				{$newCategory.renderInput('newCategories[' . $newCategory.id . ']')|raw}
+			</xf:foreach>
+		</div>
+		
+		<div class="new-criteria">
+			<xf:foreach loop="$criteria.new" value="$criterion">
+				{$criterion.renderInput('criteria[new][' . $criterion.id . ']', ['title', 'description', 'category_id'])|raw}
+			</xf:foreach>
+		</div>
+		
+		<div class="upgrade-criteria">
+			<xf:foreach loop="$criteria.upgrade" value="$criterion">
+				{$criterion.renderInput('criteria[upgrade][' . $criterion.id . ']')|raw}
+			</xf:foreach>
+		</div>
+		
+		<div class="params">
+			<xf:foreach loop="$params" value="$param">
+				{$param.renderInput('params[' . $param.criterion_id . '][' . $param.id . ']')|raw}
+			</xf:foreach>
+		</div>
+	</div>
+	
+	<xf:if is="count($criteria.new) || count($criteria.upgrade) || count($criteria.error)">
+		<div class="block categories">
+			<div class="block-container">
+				
+				<xf:if is="count($criteria.new)">
+					<div class="block-part block-part--success criteria-new" data-xf-init="checked-counter">
+						<xf:macro name="block_header"
+								  arg-title="{{ phrase('CMTV_CB_new_criteria') }}"
+								  arg-help="{{ phrase('CMTV_CB_new_criteria_help') }}"
+								  arg-icon="fa-plus"
+								  arg-counter="{{ true }}"
+								  arg-total="{{ count($criteria.new) }}" />
+
+						<div class="block-body block-body--collapsible">
+							<xf:macro name="new_criteria" arg-criteria="{$criteria.new}" arg-selectCategories="{$selectCategories}" />
+						</div>
+					</div>
+				</xf:if>
+				
+				<xf:if is="count($criteria.upgrade)">
+					<div class="block-part block-part--warning criteria-upgrade" data-xf-init="checked-counter">
+						<xf:macro name="block_header"
+								  arg-title="{{ phrase('CMTV_CB_upgrade_criteria') }}"
+								  arg-help="{{ phrase('CMTV_CB_upgrade_criteria_help') }}"
+								  arg-icon="fa-edit"
+								  arg-counter="{{ true }}"
+								  arg-total="{{ count($criteria.upgrade) }}" />
+						
+						<div class="block-body block-body--collapsible">
+							<xf:macro name="upgrade_criteria" arg-criteria="{$criteria.upgrade}" />
+						</div>
+					</div>
+				</xf:if>
+				
+				<xf:if is="count($criteria.error)">
+					<div class="block-part block-part--error criteria-error">
+						<xf:macro name="block_header"
+								  arg-title="{{ phrase('CMTV_CB_error_criteria') }}"
+								  arg-help="{{ phrase('CMTV_CB_error_criteria_help') }}"
+								  arg-icon="fa-exclamation-triangle"
+								  arg-total="{{ count($criteria.error) }}" />
+
+						<div class="block-body block-body--collapsible">
+							<xf:macro name="error_criteria" arg-criteria="{$criteria.error}" />
+						</div>
+					</div>
+				</xf:if>
+				
+			</div>
+		</div>
+	<xf:else />
+		<div class="blockMessage blockMessage--highlight">
+			{{ phrase('CMTV_CB_no_new_upgrade_criteria_to_import') }}
+		</div>
+	</xf:if>
+	
+	<div class="block resolving-actions">
+		<div class="block-container">
+			<div class="block-footer block-footer--split">
+				<div class="block-footer-main"></div>
+				<xf:button class="button--link" href="{{ link('criteria-builder/import') }}" icon="cancel" />
+				<xf:button type="submit" icon="confirm" />
+			</div>
+		</div>
+	</div>
+	
+</xf:form>
+
+<xf:macro name="new_criteria" arg-criteria="!" arg-selectCategories="!">	
+	<xf:foreach loop="$criteria" value="$criterion">
+		<xf:set var="$inputName" value="criteria[new][{$criterion.id}]" />
+		
+		<div class="criterion">
+			<xf:checkboxrow standalone="true" rowclass="js-countable inherit-style">
+				<xf:option label="{{ phrase('CMTV_CB_import_this_criterion') }}" name="import[new][{$criterion.id}]" selected="true" />
+			</xf:checkboxrow>
+			
+			<xf:textboxrow label="{{ phrase('title') }}" value="{$criterion.title}" name="{$inputName}[title]" />
+			<xf:textarearow autosize="true" label="{{ phrase('description') }}" value="{$criterion.description}" name="{$inputName}[description]" />
+			
+			<xf:selectrow label="{{ phrase('CMTV_CB_criteria_category') }}" 
+						  name="{$inputName}[category_id]"
+						  value="{$criterion.category_id}">
+				
+				<xf:option value="0" label="{{ phrase('(none)') }}" />
+				<xf:optgroup label="{{ phrase('new') }}">
+					<xf:options source="$selectCategories.new" />
+				</xf:optgroup>
+				<xf:optgroup label="{{ phrase('existing') }}">
+					<xf:options source="$selectCategories.existing" />
+				</xf:optgroup>
+			</xf:selectrow>
+		</div>
+		<hr class="formRowSep" />
+	</xf:foreach>
+</xf:macro>
+
+<xf:macro name="upgrade_criteria" arg-criteria="!">
+	<xf:datalist>
+		<xf:foreach loop="$criteria" value="$criterion">
+			<xf:datarow>
+				<xf:toggle name="import[upgrade][{$criterion.id}]" class="inherit-style js-countable" selected="true" />
+				<xf:cell>{$criterion.title}</xf:cell>
+			</xf:datarow>
+		</xf:foreach>
+	</xf:datalist>
+</xf:macro>
+
+<xf:macro name="error_criteria" arg-criteria="!">
+	<xf:datalist>
+		<xf:foreach loop="$criteria" key="$criterionTitle" value="$errors">
+			<xf:datarow>
+				<xf:cell><strong>{$criterionTitle}</strong></xf:cell>
+				<xf:cell>
+
+					<xf:if is="count($errors) > 1">
+						<xf:foreach loop="$errors" value="$error" i="$i">{$i}. {$error}<br></xf:foreach>
+					<xf:else />
+						<xf:foreach loop="$errors" value="$error">{$error}</xf:foreach>
+					</xf:if>
+
+				</xf:cell>
+			</xf:datarow>
+		</xf:foreach>
+	</xf:datalist>
+</xf:macro>
+
+<xf:macro name="block_header" 
+		  arg-title="!" 
+		  arg-icon="" 
+		  arg-counter="{{ false }}" 
+		  arg-total="0" 
+		  arg-help="">
+	
+	<h2 class="block-header">
+		<span class="collapseTrigger collapseTrigger--block" data-xf-click="toggle" data-target="< :up:next">
+			<xf:fa class="block-header-icon" icon="{$icon}" /><span>{$title}</span>
+			
+			<xf:if is="$counter">
+				<span data-xf-init="tooltip" title="{{ phrase('CMTV_CB_selected_available') }}" class="counter js-counterContainer">
+					<span class="js-counterValue"></span> / <span>{$total}</span>
+				</span>
+			<xf:else />
+				<span data-xf-init="tooltip" title="{{ phrase('total') }}" class="counter">{$total}</span>
+			</xf:if>
+			
+			<xf:if is="$help">
+				<xf:fa class="help-icon" icon="fa-info-circle" data-xf-init="tooltip" title="{$help}" />
+			</xf:if>
+		</span>
+	</h2>
+</xf:macro>]]></template>
+  <template type="admin" title="CMTV_CB_import_resolving.less" version_id="1000070" version_string="1.0.0"><![CDATA[.criteria-new
+{
+	.criterion + .formRowSep
+	{
+		margin: 0;
+	}
+}
+
+.block-part
+{
+	&:not(:first-of-type)
+	{
+		border-top: @xf-borderSize solid @xf-borderColorLight;
+	}
+	
+	.block-header
+	{
+		.block-header-icon
+		{
+			width: 1.5em;
+		}
+		
+		.counter
+		{
+			position: relative;
+			top: -2px;
+
+			margin-left: 0.5em;
+			padding: 2px 4px;
+
+			background: @xf-contentBg;
+			border-radius: 3px;
+
+			font-size: @xf-fontSizeSmaller;
+		}
+
+		.help-icon
+		{
+			float: right;
+			
+			position: relative;
+			top: 4px;
+			right: 5px;
+		}
+	}
+	
+	.style(@textColor, @bgColor)
+	{
+		.block-header
+		{
+			background: linear-gradient(0deg, @bgColor, mix(@bgColor, @xf-contentBg, 50%));
+			color: @textColor;
+
+			.counter
+			{
+				border: @xf-borderSize solid mix(@textColor, @xf-contentBg, 50%);
+			}
+		}
+	}
+	
+	.checkboxStyle(@normalColor, @hoverColor)
+	{
+		.inherit-style i,
+		.inherit-style + i
+		{
+			color: @normalColor !important;
+			
+			&:hover, &:focus, &:active
+			{
+				color: @hoverColor !important;
+			}
+		}
+	}
+	
+	&--success
+	{
+		.style(@xf-successColor, @xf-successBg);
+		.checkboxStyle(@xf-successFeatureColor, @xf-successColor);
+	}
+	
+	&--warning
+	{
+		.style(@xf-warningColor, @xf-warningBg);
+		.checkboxStyle(@xf-warningFeatureColor, @xf-warningColor);
+	}
+	
+	&--error
+	{
+		.style(@xf-errorColor, @xf-errorBg);
+		.checkboxStyle(@xf-errorFeatureColor, @xf-errorColor);
+	}
+	
+	&--disabled
+	{
+		.style(@xf-textColorDimmed, @xf-borderColorFaint);
+		
+		.block-body
+		{
+			color: @xf-textColorDimmed;
+			background: @xf-contentAltBg;
+		}
+	}
+}
+
+.resolving-actions
+{
+	.button[type="submit"]
+	{
+		margin-left: @xf-paddingMedium;
+	}
+}]]></template>
+  <template type="admin" title="CMTV_CB_list.less" version_id="1000070" version_string="1.0.0"><![CDATA[.cell-extra,
+.cell-extra a
+{
+	text-align: left !important;
+	font-size: @xf-fontSizeSmall;
+	color: @xf-textColorMuted;
+}
+
+.cell-nestable
+{	
+	.main
+	{
+		font-size: @xf-fontSizeLarge;
+	}
+	
+	.minor
+	{
+		font-size: @xf-fontSizeSmall;
+		color: @xf-textColorMuted;
+	}
+}
+
+.category
+{
+	.icon
+	{
+		padding-right: @xf-paddingLarge;
+	}
+}]]></template>
+  <template type="admin" title="CMTV_CB_list_empty" version_id="1000070" version_string="1.0.0"><![CDATA[<xf:title>{$titlePhrase}</xf:title>
+
+<xf:pageaction>
+	<xf:button href="{$addUrl}" icon="add">
+		{$addPhrase}
+	</xf:button>
+</xf:pageaction>
+
+<div class="blockMessage">
+	{{ bb_code_type('XF:SimpleHtml', $emoji, null, null) }}
+	{$emptyPhrase}
+	<a href="{$addUrl}">{{ phrase('CMTV_CB_create_one') }}</a>
+</div>]]></template>
+  <template type="admin" title="CMTV_CB_param_def_date_time" version_id="1000070" version_string="1.0.0"><![CDATA[<xf:formrow label="{$paramTitle}">
+	<div class="inputGroup">
+		<xf:dateinput name="{$name}[ymd]" value="{$value.ymd}" />
+		<span class="inputGroup-text">
+			{{ phrase('criteria_time:') }}
+		</span>
+		<span class="inputGroup" dir="ltr">
+			<xf:select name="{$name}[hh]" value="{$value.hh}" class="input--inline input--autoSize">
+				<xf:foreach loop="$criteriaData.hours" value="$hour">
+					<xf:option value="{$hour}" label="{$hour}" />
+				</xf:foreach>
+			</xf:select>
+			<span class="inputGroup-text">:</span>
+			<xf:select name="{$name}[mm]" value="{$value.mm}" class="input--inline input--autoSize">
+				<xf:foreach loop="$criteriaData.minutes" value="$minute">
+					<xf:option value="{$minute}" label="{$minute}" />
+				</xf:foreach>
+			</xf:select>
+		</span>
+	</div>
+	<dfn class="inputChoices-explain inputChoices-explain--after">{{ phrase('criteria_leave_date_empty') }}</dfn>
+	<br>
+	<xf:radio name="{$name}[user_tz]" value="{{ $value.user_tz ?: 0 }}">
+		<xf:option value="1" label="{{ phrase('criteria_in_visitor_timezone') }}" />
+		<xf:option value="0" label="{{ phrase('criteria_in_selected_timezone:') }}">
+			<xf:select name="{$name}[timezone]" value="{{ $value.timezone ? $value.timezone : $visitor.timezone }}">
+				<xf:options source="{$criteriaData.timeZones}" />
+			</xf:select>
+		</xf:option>
+	</xf:radio>
+</xf:formrow>]]></template>
+  <template type="admin" title="CMTV_CB_param_def_forum_select" version_id="1000070" version_string="1.0.0"><![CDATA[<xf:selectrow name="{$name}{{ $options.multiselect ? '[]' : '' }}"
+			  value="{{ $value ?: '' }}" multiple="{{ $options.multiselect ? 'multiple' : '' }}"
+			  size="{{ $options.multiselect ? '7' : '' }}" label="{$paramTitle}">
+	
+	<xf:option value="">{{ phrase('all_forums') }}</xf:option>
+	<xf:foreach loop="$nodeTree.getFlattened(0)" value="$treeEntry">
+		<xf:option value="{$treeEntry.record.node_id}" disabled="{{ $treeEntry.record.node_type_id != 'Forum' }}">
+			{{ repeat('&nbsp;&nbsp;', $treeEntry.depth)|raw }} {$treeEntry.record.title}
+		</xf:option>
+	</xf:foreach>
+</xf:selectrow>]]></template>
+  <template type="admin" title="CMTV_CB_param_def_number_box" version_id="1000070" version_string="1.0.0"><![CDATA[<xf:numberboxrow name="{$name}"
+				 value="{{ $value !== null ? $value : $options.default }}"
+				 label="{$paramTitle}"
+				 min="{$options.min}"
+				 max="{$options.max}"
+				 step="{$options.step}" />]]></template>
+  <template type="admin" title="CMTV_CB_param_def_options_forum_select" version_id="1000070" version_string="1.0.0"><![CDATA[<xf:checkboxrow label="{{ phrase('CMTV_CB_multi_selection') }}">
+	<xf:option name="options[multiselect]" checked="{$options.multiselect}" label="{{ phrase('enabled') }}" />
+</xf:checkboxrow>]]></template>
+  <template type="admin" title="CMTV_CB_param_def_options_number_box" version_id="1000070" version_string="1.0.0"><![CDATA[<xf:numberboxrow name="options[step]" value="{$options.step}" label="{{ phrase('CMTV_CB_step') }}" />
+<xf:numberboxrow name="options[default]" value="{$options.default}" label="{{ phrase('default_value') }}" />
+<xf:numberboxrow name="options[min]" value="{$options.min}" label="{{ phrase('minimum') }}" />
+<xf:numberboxrow name="options[max]" value="{$options.max}" label="{{ phrase('maximum') }}" />]]></template>
+  <template type="admin" title="CMTV_CB_param_def_options_switcher" version_id="1000070" version_string="1.0.0"><![CDATA[<xf:checkboxrow label="{{ phrase('default_value') }}">
+	<xf:option name="options[enabled]" checked="{$options.enabled}" />
+</xf:checkboxrow>]]></template>
+  <template type="admin" title="CMTV_CB_param_def_options_text_box" version_id="1000070" version_string="1.0.0"><![CDATA[<xf:numberboxrow name="options[max_length]" value="{$options.max_length}" label="{{ phrase('maximum_length') }}" min="1" />
+
+<xf:textboxrow name="options[default]" value="{$options.default}" label="{{ phrase('default_value') }}" />
+
+<xf:textboxrow name="options[pre_icon]" value="{$options.pre_icon}" label="{{ phrase('icon') }}" />
+
+<xf:checkboxrow label="{{ phrase('CMTV_CB_username_autocomplete') }}">
+	<xf:option name="options[username_autocomplete]" checked="{$options.username_autocomplete}" label="{{ phrase('enabled') }}" />
+</xf:checkboxrow>
+
+<xf:textboxrow name="options[regex]" value="{$options.regex}" label="{{ phrase('regular_expression') }}" />]]></template>
+  <template type="admin" title="CMTV_CB_param_def_options_user_group_select" version_id="1000070" version_string="1.0.0"><![CDATA[<xf:checkboxrow label="{{ phrase('CMTV_CB_multi_selection') }}">
+	<xf:option name="options[multiselect]" checked="{$options.multiselect}" label="{{ phrase('enabled') }}" />
+</xf:checkboxrow>]]></template>
+  <template type="admin" title="CMTV_CB_param_def_reaction_select" version_id="1000070" version_string="1.0.0"><![CDATA[<xf:checkboxrow name="{$name}" label="{$paramTitle}">
+	<xf:foreach loop="$reactions" value="$reaction" class="SDF">
+		<xf:option name="{$name}[{$reaction.reaction_id}]" selected="{$value.{$reaction.reaction_id}}">
+			<xf:label>
+				<xf:reaction id="{$reaction}" showtitle="true" />
+			</xf:label>
+		</xf:option>
+	</xf:foreach>
+</xf:checkboxrow>]]></template>
+  <template type="admin" title="CMTV_CB_param_def_switcher" version_id="1000070" version_string="1.0.0"><![CDATA[<xf:checkboxrow>
+	<xf:option name="{$name}" label="{$paramTitle}" checked="{{ $criterionSelected ? $value : $options.enabled }}" />
+</xf:checkboxrow>]]></template>
+  <template type="admin" title="CMTV_CB_param_def_text_box" version_id="1000070" version_string="1.0.0"><![CDATA[<xf:textboxrow name="{$name}"
+			   value="{{ $criterionSelected ? $value : $options.default }}"
+			   label="{$paramTitle}" 
+			   fa="{$options.pre_icon}" 
+			   maxlength="{$options.max_length}" 
+			   pattern="{$options.regex}"
+			   data-xf-init="{{ $options.username_autocomplete ? 'auto-complete' : '' }}" />]]></template>
+  <template type="admin" title="CMTV_CB_param_def_thread_prefix_select" version_id="1000070" version_string="1.0.0"><![CDATA[<xf:if is="$prefixesGrouped is not empty">
+	<xf:checkboxrow name="{$name}" listclass="prefix"
+					data-xf-init="checkbox-select-disabler"
+					data-select="select[name=default_prefix_id]"
+					label="{$paramTitle}">
+
+		<xf:foreach loop="$prefixGroups" key="$prefixGroupId" value="$prefixGroup" if="{$prefixesGrouped.{$prefixGroupId}}">
+
+			<xf:optgroup check-all="true" listclass="listColumns"
+						 label="{{ $prefixGroupId ? $prefixGroup.title : phrase('ungrouped') }}">
+
+				<xf:foreach loop="{$prefixesGrouped.{$prefixGroupId}}" key="$prefixId" value="$prefix">
+					<xf:option name="{$name}[{$prefixId}]" selected="{$value.{$prefixId}}">
+						<xf:label><span class="label {$prefix.css_class}">{$prefix.title}</span></xf:label>
+					</xf:option>
+				</xf:foreach>
+			</xf:optgroup>
+		</xf:foreach>
+	</xf:checkboxrow>
+
+	<xf:else />
+
+	<xf:formrow label="{{ phrase('available_prefixes') }}">
+		{{ phrase('none')|parens }}
+	</xf:formrow>
+</xf:if>]]></template>
+  <template type="admin" title="CMTV_CB_param_def_user_group_select" version_id="1000070" version_string="1.0.0"><![CDATA[<xf:selectrow name="{$name}{{ $options.multiselect ? '[]' : '' }}" 
+			  value="{{ $value ?: '' }}" multiple="{{ $options.multiselect ? 'multiple' : '' }}"
+			  size="{{ $options.multiselect ? '7' : '' }}" label="{$paramTitle}">
+	
+	<xf:option value="">{{ phrase('all_user_groups') }}</xf:option>
+	<xf:options source="$userGroups" />
+</xf:selectrow>]]></template>
+  <template type="admin" title="CMTV_CB_param_definition_edit" version_id="1000070" version_string="1.0.0"><![CDATA[<xf:if is="$definition.isInsert()">
+	<xf:title>{{ phrase('CMTV_CB_add_param_definition') }}</xf:title>
+<xf:else />
+	<xf:title>{{ phrase('CMTV_CB_edit_param_definition:') }} {$definition.title}</xf:title>
+</xf:if>
+
+<xf:pageaction if="$definition.isUpdate()">
+	<xf:button href="{{ link('criteria-builder/params/definitions/delete', $definition) }}" icon="delete" overlay="true" />
+</xf:pageaction>
+
+<xf:form action="{{ link('criteria-builder/params/definitions/save', $definition) }}" class="block" ajax="true">
+	<div class="block-container">
+		<div class="block-body">
+			
+			<xf:macro template="CMTV_CB_persistent_id_macros" name="persistent_id"
+					  arg-id="{$definition.definition_id}" arg-label="{{ phrase('definition_id') }}"
+					  arg-name="definition_id" arg-maxLength="{{ max_length($definition, 'definition_id') }}"
+					  arg-editable="{$definition.isInsert()}" />
+
+			<xf:textboxrow name="definition_class" value="{$definition.definition_class}"
+						   maxlength="{{ max_length($definition, 'definition_class') }}"
+						   label="{{ phrase('definition_class') }}"
+						   explain="{{ phrase('CMTV_CB_param_definition_class_explain') }}"
+						   dir="ltr" />
+			
+			<hr class="formRowSep" />
+			
+			<xf:textboxrow name="title" value="{{ $definition.definition_id ? $definition.MasterTitle.phrase_text : '' }}"
+						   label="{{ phrase('title') }}" />
+
+			<xf:textarearow name="description" value="{{ $definition.definition_id ? $definition.MasterDescription.phrase_text : '' }}" autosize="true"
+							label="{{ phrase('description') }}" />
+
+			<xf:textboxrow name="icon" value="{{ $definition.exists() ? $definition.icon : '' }}"
+						   maxlength="{{ max_length($definition, 'icon') }}" fa="{{ $definition.icon ?: '' }}"
+						   label="{{ phrase('CMTV_CB_icon') }}" explain="{{ phrase('CMTV_CB_icon_explain') }}" />
+			
+			<xf:macro template="display_order_macros" name="row" arg-value="{$definition.display_order}" />
+			
+			<xf:macro template="addon_macros" name="addon_edit" arg-addOnId="{$definition.addon_id}" />
+		</div>
+		
+		<xf:submitrow sticky="true" icon="save" />
+	</div>
+</xf:form>]]></template>
+  <template type="admin" title="CMTV_CB_param_definition_list" version_id="1000070" version_string="1.0.0"><![CDATA[<xf:title>{{ phrase('CMTV_CB_param_definitions') }}</xf:title>
+
+<xf:pageaction>
+	<xf:button href="{{ link('criteria-builder/params/definitions/add') }}" icon="add">
+		{{ phrase('CMTV_CB_add_param_definition') }}
+	</xf:button>
+</xf:pageaction>
+
+<xf:css src="CMTV_CB_list.less" />
+
+<xf:js src="xf/sort.js, vendor/dragula/dragula.js"/>
+<xf:js prod="CMTV/CriteriaBuilder/sort.min.js" dev="CMTV/CriteriaBuilder/sort.js" addon="CMTV/CriteriaBuilder" />
+<xf:js prod="CMTV/CriteriaBuilder/ajax-sort.min.js" dev="CMTV/CriteriaBuilder/ajax-sort.js" addon="CMTV/CriteriaBuilder" />
+<xf:css src="public:dragula.less"/>
+
+<div class="block">
+	<div class="block-outer">
+		<xf:macro template="filter_macros" name="quick_filter" arg-key="definitions" arg-class="block-outer-opposite" />
+	</div>
+	<div class="block-container">
+		<div class="block-body">
+			<xf:datalist data-xf-init="CMTV-CB-list-sorter ajax-sorter"
+						 data-container=".dataList-table tbody"
+						 data-drag-handle="tr" 
+						 data-sort-url="{{ link('criteria-builder/params/definitions/ajaxSort') }}">
+				<xf:foreach loop="$definitions" value="$definition">
+					<xf:datarow
+							data-id="{$definition.definition_id}"
+							label="{$definition.title}"
+							hint="{$definition.definition_class}"
+							explain="{$definition.description}"
+							href="{{ link('criteria-builder/params/definitions/edit', $definition) }}"
+							delete="{{ link('criteria-builder/params/definitions/delete', $definition) }}" 
+							icon="{$definition.icon}">
+						<xf:cell class="dataList-cell--min cell-extra" data-xf-init="tooltip" title="{{ phrase('CMTV_CB_addon') }}">
+							<xf:fa icon="fa-puzzle-piece" /> {$definition.AddOn.title}
+						</xf:cell>
+					</xf:datarow>
+				</xf:foreach>
+			</xf:datalist>
+		</div>
+		<div class="block-footer">
+			<span class="block-footer-counter">{{ display_totals($definitions) }}</span>
+		</div>
+	</div>
+</div>]]></template>
+  <template type="admin" title="CMTV_CB_param_delete" version_id="1000070" version_string="1.0.0"><![CDATA[<xf:title>{{ phrase('confirm_action') }}</xf:title>
+
+<xf:form action="{{ link('criteria-builder/params/delete', $param) }}" ajax="true" class="block" data-xf-init="param-delete">
+	<div class="block-container">
+		<div class="block-body">
+			<xf:inforow rowtype="confirm">
+				{{ phrase('please_confirm_that_you_want_to_delete_following:') }}
+				<strong>{$param.title}</strong>
+			</xf:inforow>
+		</div>
+		<xf:submitrow rowtype="simple" icon="delete" />
+	</div>
+</xf:form>]]></template>
+  <template type="admin" title="CMTV_CB_param_edit" version_id="1000070" version_string="1.0.0"><![CDATA[<xf:if is="$param.isInsert()">
+	<xf:title>{{ phrase('CMTV_CB_add_param') }}</xf:title>
+<xf:else />
+	<xf:title>{{ phrase('CMTV_CB_edit_param') }}</xf:title>
+</xf:if>
+
+<xf:form action="{{ link('criteria-builder/params/save', $param) }}" class="block" ajax="true" data-xf-init="param-add-edit" data-redirect="off">
+	<div class="block-container">
+		<div class="block-body">
+			
+			<xf:formrow label="{{ phrase('CMTV_CB_param_type') }}">
+				<xf:fa icon="{$param.Definition.icon}" /> {$param.Definition.title}
+			</xf:formrow>
+
+			<xf:macro template="CMTV_CB_persistent_id_macros" name="persistent_id"
+					  arg-id="{$param.param_id}" arg-label="{{ phrase('CMTV_CB_param_id') }}"
+					  arg-name="param_id" arg-maxLength="{{ max_length($param, 'param_id') }}"
+					  arg-editable="{$param.isInsert()}" arg-explain="{{ phrase('CMTV_CB_param_id_explain') }}" />
+			
+			<xf:textboxrow name="title" value="{{ $param.param_id ? $param.MasterTitle.phrase_text : '' }}"
+						   label="{{ phrase('title') }}" />
+
+			<xf:if is="$param.renderOptions()">
+				<h3 class="block-formSectionHeader">
+					<span class="block-formSectionHeader-aligner">{{ phrase('options') }}</span>
+				</h3>
+				<div class="block-body">
+					{$param.renderOptions()|raw}
+				</div>
+			</xf:if>
+
+			<xf:hiddenval name="definition_id" value="{$param.Definition.definition_id}" />
+		</div>
+		
+		<xf:submitrow icon="save" />
+	</div>
+</xf:form>]]></template>
+  <template type="admin" title="CMTV_CB_param_edit_row" version_id="1000070" version_string="1.0.0"><![CDATA[<xf:datarow
+			data-id="{$param.criterion_id}-{$param.param_id}"
+			icon="{$param.Definition.icon} fa-1x"
+			label="{$param.title}"
+			hint="{$param.param_id}"
+			overlay="true"
+			data-cache="false"
+			href="{{ link('criteria-builder/params/edit', $param) }}"
+			delete="{{ link('criteria-builder/params/delete', $param) }}" />]]></template>
+  <template type="admin" title="CMTV_CB_param_quick_view" version_id="1000070" version_string="1.0.0"><![CDATA[<div class="param-quick-view" data-id="{$param.criterion_id}-{$param.param_id}" data-xf-init="tooltip" title="{$param.Definition.title}">
+	<xf:fa icon="{$param.Definition.icon}" />
+	<span>{$param.param_id}</span>
+</div>]]></template>
+  <template type="admin" title="CMTV_CB_persistent_id_macros" version_id="1000070" version_string="1.0.0"><![CDATA[<xf:macro name="persistent_id" 
+		  arg-id="!"
+		  arg-label="!"
+		  arg-name="!"
+		  arg-maxLength=""
+		  arg-editable="{{ false }}" 
+		  arg-fullWidth="{{ false }}"
+		  arg-explain="{{ false }}">
+	
+	<xf:if is="$editable">
+		<xf:textboxrow name="{$name}" maxlength="{$maxLength}" rowtype="{{ $fullWidth ? 'fullWidth' : '' }}"
+					   label="{$label}" explain="{{ $explain ?:  phrase('CMTV_CB_unique_id_explain') }}"
+					   dir="ltr" />
+	<xf:else />
+		<xf:formrow label="{$label}" explain="{{ $explain ?: phrase('CMTV_CB_unique_id_explain') }}"
+					rowtype="{{ $fullWidth ? 'fullWidth' : '' }}">
+			<span class="u-ltr"><strong>{$id}</strong></span>
+		</xf:formrow>
+	</xf:if>
+		
+</xf:macro>]]></template>
+  <template type="admin" title="CMTV_CB_tools_rebuild" version_id="1000070" version_string="1.0.0"><![CDATA[<xf:macro template="tools_rebuild" name="rebuild_job"
+	arg-header="{{ phrase('CMTV_CB_category_criteria_count_rebuild') }}"
+	arg-job="CMTV\CriteriaBuilder:CategoryCriteriaCount" />
+
+<!--[CMTV\CriteriaBuilder:after_category_counts]-->]]></template>
+  <template type="admin" title="CMTV_CB_transfer_array_to_input" version_id="1000070" version_string="1.0.0"><![CDATA[<xf:foreach loop="$transferArray.getAttributes()" key="$key" value="$value">
+	<xf:if is="!in_array($key, $except)">
+		<xf:hiddenval name="{$container}[{$key}]">{$value}</xf:hiddenval>
+	</xf:if>
+</xf:foreach>
+
+<xf:foreach loop="$transferArray.getCData()" key="$key" value="$value">
+	<xf:if is="!in_array($key, $except)">
+		<textarea name="{$container}[{$key}]" style="display: none;">{$value}</textarea>
+	</xf:if>
+</xf:foreach>]]></template>
+</templates>

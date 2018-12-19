@@ -1,0 +1,1 @@
+Used to retrieve param value in criterion code. Must be unique for current criterion. It can't be changed once set.

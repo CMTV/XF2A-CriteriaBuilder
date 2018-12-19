@@ -1,0 +1,9 @@
+{
+    "template": "helper_criteria",
+    "description": "Adding \"[CB] User criteria\" pane",
+    "execution_order": 10,
+    "enabled": true,
+    "action": "preg_replace",
+    "find": "/<li class=\"{{ \\$active == 'user_field' \\? 'is-active' : '' }}\" role=\"tabpanel\" id=\"{{ unique_id\\('criteriaUserField'\\) }}\">[\\s\\S]+?<\\/li>/",
+    "replace": "$0\n\n<xf:macro name=\"pane\" template=\"CMTV_CB_helper_criteria\" \n\t\t  arg-criteriaType=\"user\"\n\t\t  arg-criteriaInput=\"user_criteria\"\n\t\t  arg-criteria=\"{$criteria}\"\n\t\t  arg-data=\"{$data}\" />"
+}

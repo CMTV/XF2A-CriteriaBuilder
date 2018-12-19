@@ -1,0 +1,62 @@
+.category
+{
+	.icon
+	{
+		padding-right: @xf-paddingLarge;
+	}
+	
+	.selected-counter
+	{
+		font-size: @xf-fontSizeSmaller;
+		color: @xf-textColorMuted;
+		
+		margin-left: @xf-paddingMedium;
+		
+		i
+		{
+			padding-right: @xf-paddingSmall;
+		}
+	}
+}
+
+.criterion 
+{
+	.formRowSep:first-of-type,
+	& + .formRowSep
+	{
+		margin: 0;
+	}
+	
+	&:not(.selected) .formRowSep:first-of-type
+	{
+		display: none;
+	}
+	
+	& > .formRow dt,
+	& > .formRow dd,
+	.options > .formRow dt
+	{
+		transition: background .2s;
+	}
+	
+	&.selected
+	{
+		& > .formRow
+		{
+			dt
+			{
+				background: @xf-blockTabHeaderTextColor;
+			}
+			
+			dd
+			{
+				background: @xf-majorHeadingBg;
+			}
+		}
+				
+		.options > .formRow dt
+		{
+			background: @xf-majorHeadingBg;
+		}
+	}
+}

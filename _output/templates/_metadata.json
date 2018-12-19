@@ -1,0 +1,187 @@
+{
+    "admin/CMTV_CB_category_delete.html": {
+        "version_id": 1000070,
+        "version_string": "1.0.0",
+        "hash": "7c62e43babe0c306ddede5f9a0d83d6e"
+    },
+    "admin/CMTV_CB_category_edit.html": {
+        "version_id": 1000070,
+        "version_string": "1.0.0",
+        "hash": "ce78f108301239140fa432fc18d4e8f6"
+    },
+    "admin/CMTV_CB_category_list.html": {
+        "version_id": 1000070,
+        "version_string": "1.0.0",
+        "hash": "6c81575717e203a88a865c0d977de5d1"
+    },
+    "admin/CMTV_CB_criteria.less": {
+        "version_id": 1000070,
+        "version_string": "1.0.0",
+        "hash": "a9cc4f6d7b3bb774ee2997200b6b3d94"
+    },
+    "admin/CMTV_CB_criterion_add.html": {
+        "version_id": 1000070,
+        "version_string": "1.0.0",
+        "hash": "5b9cd195defb7e0d9f906a6c25df26a7"
+    },
+    "admin/CMTV_CB_criterion_edit.html": {
+        "version_id": 1000070,
+        "version_string": "1.0.0",
+        "hash": "79c76d3cebf223e6585849ffbbac69e8"
+    },
+    "admin/CMTV_CB_criterion_edit.less": {
+        "version_id": 1000070,
+        "version_string": "1.0.0",
+        "hash": "f8f1b3c51a78271d3fc218d2c5777d10"
+    },
+    "admin/CMTV_CB_criterion_list.html": {
+        "version_id": 1000070,
+        "version_string": "1.0.0",
+        "hash": "453aa04ec665ceea677c76d0d930cfa0"
+    },
+    "admin/CMTV_CB_export.html": {
+        "version_id": 1000070,
+        "version_string": "1.0.0",
+        "hash": "66d3e544e4c7eff15ae273f73b222d23"
+    },
+    "admin/CMTV_CB_helper_criteria.html": {
+        "version_id": 1000070,
+        "version_string": "1.0.0",
+        "hash": "a2362baa34be786fc76fc87c3f88321e"
+    },
+    "admin/CMTV_CB_import.html": {
+        "version_id": 1000070,
+        "version_string": "1.0.0",
+        "hash": "ffd367cfe57397cbd7b0d57cb0393faa"
+    },
+    "admin/CMTV_CB_import_resolving.html": {
+        "version_id": 1000070,
+        "version_string": "1.0.0",
+        "hash": "895c06b6a22803c6c2c13e827a38f22d"
+    },
+    "admin/CMTV_CB_import_resolving.less": {
+        "version_id": 1000070,
+        "version_string": "1.0.0",
+        "hash": "8dc3b4ee06ad35579a092065094344b0"
+    },
+    "admin/CMTV_CB_list.less": {
+        "version_id": 1000070,
+        "version_string": "1.0.0",
+        "hash": "675c7ae92f2cd3c89f0b2c53a63b89dd"
+    },
+    "admin/CMTV_CB_list_empty.html": {
+        "version_id": 1000070,
+        "version_string": "1.0.0",
+        "hash": "6c1d6519d6fb3179f11e0f1c258416b1"
+    },
+    "admin/CMTV_CB_param_def_date_time.html": {
+        "version_id": 1000070,
+        "version_string": "1.0.0",
+        "hash": "84686fc7b20ecc6735f836694eb1032f"
+    },
+    "admin/CMTV_CB_param_def_forum_select.html": {
+        "version_id": 1000070,
+        "version_string": "1.0.0",
+        "hash": "f4660564a190ad0afb8cd65915371b9a"
+    },
+    "admin/CMTV_CB_param_def_number_box.html": {
+        "version_id": 1000070,
+        "version_string": "1.0.0",
+        "hash": "a5ee56130fcf74c626fae9bb1cbe999a"
+    },
+    "admin/CMTV_CB_param_def_options_forum_select.html": {
+        "version_id": 1000070,
+        "version_string": "1.0.0",
+        "hash": "5858012db62ac9a38db573347302c612"
+    },
+    "admin/CMTV_CB_param_def_options_number_box.html": {
+        "version_id": 1000070,
+        "version_string": "1.0.0",
+        "hash": "fabce89ecbd8379a498c9b81fc4faa3c"
+    },
+    "admin/CMTV_CB_param_def_options_switcher.html": {
+        "version_id": 1000070,
+        "version_string": "1.0.0",
+        "hash": "87887bebd0d9e0142853cd2b583a96ef"
+    },
+    "admin/CMTV_CB_param_def_options_text_box.html": {
+        "version_id": 1000070,
+        "version_string": "1.0.0",
+        "hash": "1a0b877f58c98592df1dd00491958a48"
+    },
+    "admin/CMTV_CB_param_def_options_user_group_select.html": {
+        "version_id": 1000070,
+        "version_string": "1.0.0",
+        "hash": "5858012db62ac9a38db573347302c612"
+    },
+    "admin/CMTV_CB_param_def_reaction_select.html": {
+        "version_id": 1000070,
+        "version_string": "1.0.0",
+        "hash": "b195bfda02e0e88c02f8e7d14235894f"
+    },
+    "admin/CMTV_CB_param_def_switcher.html": {
+        "version_id": 1000070,
+        "version_string": "1.0.0",
+        "hash": "5de94cd5792e0ae125cffc28a2ac1aba"
+    },
+    "admin/CMTV_CB_param_def_text_box.html": {
+        "version_id": 1000070,
+        "version_string": "1.0.0",
+        "hash": "cd7a130092c3466009990b53a9cdba6b"
+    },
+    "admin/CMTV_CB_param_def_thread_prefix_select.html": {
+        "version_id": 1000070,
+        "version_string": "1.0.0",
+        "hash": "85038661ff80da2414b27125f1f58e4f"
+    },
+    "admin/CMTV_CB_param_def_user_group_select.html": {
+        "version_id": 1000070,
+        "version_string": "1.0.0",
+        "hash": "7104604687dd0ee6404be452a3c45af2"
+    },
+    "admin/CMTV_CB_param_definition_edit.html": {
+        "version_id": 1000070,
+        "version_string": "1.0.0",
+        "hash": "fb0a54d4334e1e5f28dd02392924df77"
+    },
+    "admin/CMTV_CB_param_definition_list.html": {
+        "version_id": 1000070,
+        "version_string": "1.0.0",
+        "hash": "6b5dc7fac3b04fcf7abda1ee1dcffc67"
+    },
+    "admin/CMTV_CB_param_delete.html": {
+        "version_id": 1000070,
+        "version_string": "1.0.0",
+        "hash": "dc4cae32ecb6039217fb35a9c864e017"
+    },
+    "admin/CMTV_CB_param_edit.html": {
+        "version_id": 1000070,
+        "version_string": "1.0.0",
+        "hash": "c139162cbadd880c043a5c9266207d0a"
+    },
+    "admin/CMTV_CB_param_edit_row.html": {
+        "version_id": 1000070,
+        "version_string": "1.0.0",
+        "hash": "7f9759a5014f5593b4d953002e8a4a74"
+    },
+    "admin/CMTV_CB_param_quick_view.html": {
+        "version_id": 1000070,
+        "version_string": "1.0.0",
+        "hash": "e736fc469bd8e2dfcd65d1cecfd69b17"
+    },
+    "admin/CMTV_CB_persistent_id_macros.html": {
+        "version_id": 1000070,
+        "version_string": "1.0.0",
+        "hash": "320141adc0e2eecb5eb30e8c3daa43fa"
+    },
+    "admin/CMTV_CB_tools_rebuild.html": {
+        "version_id": 1000070,
+        "version_string": "1.0.0",
+        "hash": "542cb64fe79fb28ed37a1e5d60dd332b"
+    },
+    "admin/CMTV_CB_transfer_array_to_input.html": {
+        "version_id": 1000070,
+        "version_string": "1.0.0",
+        "hash": "99f4bd2df1bfc2bd30cf278405e65557"
+    }
+}

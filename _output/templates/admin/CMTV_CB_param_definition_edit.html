@@ -1,0 +1,45 @@
+<xf:if is="$definition.isInsert()">
+	<xf:title>{{ phrase('CMTV_CB_add_param_definition') }}</xf:title>
+<xf:else />
+	<xf:title>{{ phrase('CMTV_CB_edit_param_definition:') }} {$definition.title}</xf:title>
+</xf:if>
+
+<xf:pageaction if="$definition.isUpdate()">
+	<xf:button href="{{ link('criteria-builder/params/definitions/delete', $definition) }}" icon="delete" overlay="true" />
+</xf:pageaction>
+
+<xf:form action="{{ link('criteria-builder/params/definitions/save', $definition) }}" class="block" ajax="true">
+	<div class="block-container">
+		<div class="block-body">
+			
+			<xf:macro template="CMTV_CB_persistent_id_macros" name="persistent_id"
+					  arg-id="{$definition.definition_id}" arg-label="{{ phrase('definition_id') }}"
+					  arg-name="definition_id" arg-maxLength="{{ max_length($definition, 'definition_id') }}"
+					  arg-editable="{$definition.isInsert()}" />
+
+			<xf:textboxrow name="definition_class" value="{$definition.definition_class}"
+						   maxlength="{{ max_length($definition, 'definition_class') }}"
+						   label="{{ phrase('definition_class') }}"
+						   explain="{{ phrase('CMTV_CB_param_definition_class_explain') }}"
+						   dir="ltr" />
+			
+			<hr class="formRowSep" />
+			
+			<xf:textboxrow name="title" value="{{ $definition.definition_id ? $definition.MasterTitle.phrase_text : '' }}"
+						   label="{{ phrase('title') }}" />
+
+			<xf:textarearow name="description" value="{{ $definition.definition_id ? $definition.MasterDescription.phrase_text : '' }}" autosize="true"
+							label="{{ phrase('description') }}" />
+
+			<xf:textboxrow name="icon" value="{{ $definition.exists() ? $definition.icon : '' }}"
+						   maxlength="{{ max_length($definition, 'icon') }}" fa="{{ $definition.icon ?: '' }}"
+						   label="{{ phrase('CMTV_CB_icon') }}" explain="{{ phrase('CMTV_CB_icon_explain') }}" />
+			
+			<xf:macro template="display_order_macros" name="row" arg-value="{$definition.display_order}" />
+			
+			<xf:macro template="addon_macros" name="addon_edit" arg-addOnId="{$definition.addon_id}" />
+		</div>
+		
+		<xf:submitrow sticky="true" icon="save" />
+	</div>
+</xf:form>

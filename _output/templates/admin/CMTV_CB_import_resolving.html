@@ -1,0 +1,187 @@
+<xf:title>{{ phrase('CMTV_CB_resolving') }}</xf:title>
+
+<xf:css src="CMTV_CB_list.less" />
+<xf:css src="CMTV_CB_import_resolving.less" />
+
+<xf:js prod="CMTV/CriteriaBuilder/checked-counter.min.js" dev="CMTV/CriteriaBuilder/checked-counter.js" addon="CMTV/CriteriaBuilder" />
+
+<xf:form action="{{ link('criteria-builder/import/confirm') }}" data-json-name="json">
+	
+	<div class="input-data">
+		<div class="new-categories">
+			<xf:foreach loop="$newCategories" value="$newCategory">
+				{$newCategory.renderInput('newCategories[' . $newCategory.id . ']')|raw}
+			</xf:foreach>
+		</div>
+		
+		<div class="new-criteria">
+			<xf:foreach loop="$criteria.new" value="$criterion">
+				{$criterion.renderInput('criteria[new][' . $criterion.id . ']', ['title', 'description', 'category_id'])|raw}
+			</xf:foreach>
+		</div>
+		
+		<div class="upgrade-criteria">
+			<xf:foreach loop="$criteria.upgrade" value="$criterion">
+				{$criterion.renderInput('criteria[upgrade][' . $criterion.id . ']')|raw}
+			</xf:foreach>
+		</div>
+		
+		<div class="params">
+			<xf:foreach loop="$params" value="$param">
+				{$param.renderInput('params[' . $param.criterion_id . '][' . $param.id . ']')|raw}
+			</xf:foreach>
+		</div>
+	</div>
+	
+	<xf:if is="count($criteria.new) || count($criteria.upgrade) || count($criteria.error)">
+		<div class="block categories">
+			<div class="block-container">
+				
+				<xf:if is="count($criteria.new)">
+					<div class="block-part block-part--success criteria-new" data-xf-init="checked-counter">
+						<xf:macro name="block_header"
+								  arg-title="{{ phrase('CMTV_CB_new_criteria') }}"
+								  arg-help="{{ phrase('CMTV_CB_new_criteria_help') }}"
+								  arg-icon="fa-plus"
+								  arg-counter="{{ true }}"
+								  arg-total="{{ count($criteria.new) }}" />
+
+						<div class="block-body block-body--collapsible">
+							<xf:macro name="new_criteria" arg-criteria="{$criteria.new}" arg-selectCategories="{$selectCategories}" />
+						</div>
+					</div>
+				</xf:if>
+				
+				<xf:if is="count($criteria.upgrade)">
+					<div class="block-part block-part--warning criteria-upgrade" data-xf-init="checked-counter">
+						<xf:macro name="block_header"
+								  arg-title="{{ phrase('CMTV_CB_upgrade_criteria') }}"
+								  arg-help="{{ phrase('CMTV_CB_upgrade_criteria_help') }}"
+								  arg-icon="fa-edit"
+								  arg-counter="{{ true }}"
+								  arg-total="{{ count($criteria.upgrade) }}" />
+						
+						<div class="block-body block-body--collapsible">
+							<xf:macro name="upgrade_criteria" arg-criteria="{$criteria.upgrade}" />
+						</div>
+					</div>
+				</xf:if>
+				
+				<xf:if is="count($criteria.error)">
+					<div class="block-part block-part--error criteria-error">
+						<xf:macro name="block_header"
+								  arg-title="{{ phrase('CMTV_CB_error_criteria') }}"
+								  arg-help="{{ phrase('CMTV_CB_error_criteria_help') }}"
+								  arg-icon="fa-exclamation-triangle"
+								  arg-total="{{ count($criteria.error) }}" />
+
+						<div class="block-body block-body--collapsible">
+							<xf:macro name="error_criteria" arg-criteria="{$criteria.error}" />
+						</div>
+					</div>
+				</xf:if>
+				
+			</div>
+		</div>
+	<xf:else />
+		<div class="blockMessage blockMessage--highlight">
+			{{ phrase('CMTV_CB_no_new_upgrade_criteria_to_import') }}
+		</div>
+	</xf:if>
+	
+	<div class="block resolving-actions">
+		<div class="block-container">
+			<div class="block-footer block-footer--split">
+				<div class="block-footer-main"></div>
+				<xf:button class="button--link" href="{{ link('criteria-builder/import') }}" icon="cancel" />
+				<xf:button type="submit" icon="confirm" />
+			</div>
+		</div>
+	</div>
+	
+</xf:form>
+
+<xf:macro name="new_criteria" arg-criteria="!" arg-selectCategories="!">	
+	<xf:foreach loop="$criteria" value="$criterion">
+		<xf:set var="$inputName" value="criteria[new][{$criterion.id}]" />
+		
+		<div class="criterion">
+			<xf:checkboxrow standalone="true" rowclass="js-countable inherit-style">
+				<xf:option label="{{ phrase('CMTV_CB_import_this_criterion') }}" name="import[new][{$criterion.id}]" selected="true" />
+			</xf:checkboxrow>
+			
+			<xf:textboxrow label="{{ phrase('title') }}" value="{$criterion.title}" name="{$inputName}[title]" />
+			<xf:textarearow autosize="true" label="{{ phrase('description') }}" value="{$criterion.description}" name="{$inputName}[description]" />
+			
+			<xf:selectrow label="{{ phrase('CMTV_CB_criteria_category') }}" 
+						  name="{$inputName}[category_id]"
+						  value="{$criterion.category_id}">
+				
+				<xf:option value="0" label="{{ phrase('(none)') }}" />
+				<xf:optgroup label="{{ phrase('new') }}">
+					<xf:options source="$selectCategories.new" />
+				</xf:optgroup>
+				<xf:optgroup label="{{ phrase('existing') }}">
+					<xf:options source="$selectCategories.existing" />
+				</xf:optgroup>
+			</xf:selectrow>
+		</div>
+		<hr class="formRowSep" />
+	</xf:foreach>
+</xf:macro>
+
+<xf:macro name="upgrade_criteria" arg-criteria="!">
+	<xf:datalist>
+		<xf:foreach loop="$criteria" value="$criterion">
+			<xf:datarow>
+				<xf:toggle name="import[upgrade][{$criterion.id}]" class="inherit-style js-countable" selected="true" />
+				<xf:cell>{$criterion.title}</xf:cell>
+			</xf:datarow>
+		</xf:foreach>
+	</xf:datalist>
+</xf:macro>
+
+<xf:macro name="error_criteria" arg-criteria="!">
+	<xf:datalist>
+		<xf:foreach loop="$criteria" key="$criterionTitle" value="$errors">
+			<xf:datarow>
+				<xf:cell><strong>{$criterionTitle}</strong></xf:cell>
+				<xf:cell>
+
+					<xf:if is="count($errors) > 1">
+						<xf:foreach loop="$errors" value="$error" i="$i">{$i}. {$error}<br></xf:foreach>
+					<xf:else />
+						<xf:foreach loop="$errors" value="$error">{$error}</xf:foreach>
+					</xf:if>
+
+				</xf:cell>
+			</xf:datarow>
+		</xf:foreach>
+	</xf:datalist>
+</xf:macro>
+
+<xf:macro name="block_header" 
+		  arg-title="!" 
+		  arg-icon="" 
+		  arg-counter="{{ false }}" 
+		  arg-total="0" 
+		  arg-help="">
+	
+	<h2 class="block-header">
+		<span class="collapseTrigger collapseTrigger--block" data-xf-click="toggle" data-target="< :up:next">
+			<xf:fa class="block-header-icon" icon="{$icon}" /><span>{$title}</span>
+			
+			<xf:if is="$counter">
+				<span data-xf-init="tooltip" title="{{ phrase('CMTV_CB_selected_available') }}" class="counter js-counterContainer">
+					<span class="js-counterValue"></span> / <span>{$total}</span>
+				</span>
+			<xf:else />
+				<span data-xf-init="tooltip" title="{{ phrase('total') }}" class="counter">{$total}</span>
+			</xf:if>
+			
+			<xf:if is="$help">
+				<xf:fa class="help-icon" icon="fa-info-circle" data-xf-init="tooltip" title="{$help}" />
+			</xf:if>
+		</span>
+	</h2>
+</xf:macro>

@@ -1,0 +1,1 @@
+Must derive from <code>\CMTV\CriteriaBuilder\Param\AbstractParam</code>.

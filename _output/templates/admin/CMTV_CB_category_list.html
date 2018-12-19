@@ -1,0 +1,47 @@
+<xf:title>{{ phrase('CMTV_CB_criteria_categories') }}</xf:title>
+
+<xf:pageaction>
+	<xf:button href="{{ link('criteria-builder/categories/add') }}" icon="add">
+		{{ phrase('add_category') }}
+	</xf:button>
+</xf:pageaction>
+
+<xf:css src="CMTV_CB_list.less" />
+
+<xf:js src="xf/sort.js, vendor/dragula/dragula.js"/>
+<xf:js prod="CMTV/CriteriaBuilder/sort.min.js" dev="CMTV/CriteriaBuilder/sort.js" addon="CMTV/CriteriaBuilder" />
+<xf:js prod="CMTV/CriteriaBuilder/ajax-sort.min.js" dev="CMTV/CriteriaBuilder/ajax-sort.js" addon="CMTV/CriteriaBuilder" />
+<xf:css src="public:dragula.less"/>
+
+<div class="block">
+	<div class="block-outer">
+		<xf:macro template="filter_macros" name="quick_filter" arg-key="categories" arg-class="block-outer-opposite" />
+	</div>
+	<div class="block-container">
+		<div class="block-body">
+			<xf:datalist data-xf-init="CMTV-CB-list-sorter ajax-sorter"
+						 data-container=".dataList-table tbody"
+						 data-drag-handle="tr" 
+						 data-sort-url="{{ link('criteria-builder/categories/ajaxSort') }}">
+				<xf:foreach loop="$categories" value="$category">
+					<xf:datarow
+							rowclass="category"
+							data-id="{$category.category_id}"
+							label="{$category.title}"
+							hint="{$category.category_id}"
+							href="{{ link('criteria-builder/categories/edit', $category) }}"
+							delete="{{ link('criteria-builder/categories/delete', $category) }}" 
+							icon="{$category.icon} fa-1x">
+						<xf:cell class="dataList-cell--min cell-extra" href="{{ link('criteria-builder/categories/edit', $category) }}"
+								 data-xf-init="tooltip" title="{{ phrase('CMTV_CB_criteria_in_category') }}">
+							<xf:fa icon="fa-filter" /> {$category.criteria}
+						</xf:cell>
+					</xf:datarow>
+				</xf:foreach>
+			</xf:datalist>
+		</div>
+		<div class="block-footer">
+			<span class="block-footer-counter">{{ display_totals($categories) }}</span>
+		</div>
+	</div>
+</div>

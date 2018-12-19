@@ -1,0 +1,5 @@
+{
+    "definition_class": "\\CMTV\\CriteriaBuilder\\Param\\UserGroupSelect",
+    "icon": "fa-users",
+    "display_order": 50
+}

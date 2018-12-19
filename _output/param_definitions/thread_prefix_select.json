@@ -1,0 +1,5 @@
+{
+    "definition_class": "\\CMTV\\CriteriaBuilder\\Param\\ThreadPrefixSelect",
+    "icon": "fa-indent",
+    "display_order": 60
+}

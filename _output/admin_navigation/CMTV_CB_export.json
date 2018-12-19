@@ -1,0 +1,10 @@
+{
+    "parent_navigation_id": "CMTV_CB_import_export",
+    "display_order": 20,
+    "link": "criteria-builder/export",
+    "icon": "",
+    "admin_permission_id": "CMTV_CB_import_export",
+    "debug_only": false,
+    "development_only": false,
+    "hide_no_children": false
+}

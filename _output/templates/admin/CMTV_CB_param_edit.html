@@ -1,0 +1,37 @@
+<xf:if is="$param.isInsert()">
+	<xf:title>{{ phrase('CMTV_CB_add_param') }}</xf:title>
+<xf:else />
+	<xf:title>{{ phrase('CMTV_CB_edit_param') }}</xf:title>
+</xf:if>
+
+<xf:form action="{{ link('criteria-builder/params/save', $param) }}" class="block" ajax="true" data-xf-init="param-add-edit" data-redirect="off">
+	<div class="block-container">
+		<div class="block-body">
+			
+			<xf:formrow label="{{ phrase('CMTV_CB_param_type') }}">
+				<xf:fa icon="{$param.Definition.icon}" /> {$param.Definition.title}
+			</xf:formrow>
+
+			<xf:macro template="CMTV_CB_persistent_id_macros" name="persistent_id"
+					  arg-id="{$param.param_id}" arg-label="{{ phrase('CMTV_CB_param_id') }}"
+					  arg-name="param_id" arg-maxLength="{{ max_length($param, 'param_id') }}"
+					  arg-editable="{$param.isInsert()}" arg-explain="{{ phrase('CMTV_CB_param_id_explain') }}" />
+			
+			<xf:textboxrow name="title" value="{{ $param.param_id ? $param.MasterTitle.phrase_text : '' }}"
+						   label="{{ phrase('title') }}" />
+
+			<xf:if is="$param.renderOptions()">
+				<h3 class="block-formSectionHeader">
+					<span class="block-formSectionHeader-aligner">{{ phrase('options') }}</span>
+				</h3>
+				<div class="block-body">
+					{$param.renderOptions()|raw}
+				</div>
+			</xf:if>
+
+			<xf:hiddenval name="definition_id" value="{$param.Definition.definition_id}" />
+		</div>
+		
+		<xf:submitrow icon="save" />
+	</div>
+</xf:form>

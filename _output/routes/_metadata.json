@@ -1,0 +1,23 @@
+{
+    "admin_criteria-builder_.json": {
+        "hash": "934d55b442ec29bef71039fac018d7f7"
+    },
+    "admin_criteria-builder_categories.json": {
+        "hash": "64ee13a1623d024211cc9334fb9c42a1"
+    },
+    "admin_criteria-builder_criteria.json": {
+        "hash": "5f04a0938ae7a4c978c913089cb30a06"
+    },
+    "admin_criteria-builder_export.json": {
+        "hash": "02f821068ef4ea5ff8ffb06639775f1b"
+    },
+    "admin_criteria-builder_import.json": {
+        "hash": "553a69d3e6566eed48acbc7274fef888"
+    },
+    "admin_criteria-builder_params-definitions.json": {
+        "hash": "a0479d82fb133194f950cb0c1a98e2df"
+    },
+    "admin_criteria-builder_params.json": {
+        "hash": "fea17626a3ed18227470c6a59514499d"
+    }
+}

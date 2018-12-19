@@ -1,0 +1,9 @@
+{
+    "parent_navigation_id": "",
+    "display_order": 15010,
+    "link": "criteria-builder",
+    "icon": "fa-filter",
+    "admin_permission_id": "",
+    "debug_only": false,
+    "hide_no_children": true
+}

@@ -1,0 +1,96 @@
+<xf:macro name="tab" arg-criteriaType="!" arg-tabName="!">
+	<a class="tabs-tab{{ $active == ('CMTV_CB_' . $criteriaType) ? 'is-active' : '' }}" role="tab" tabindex="0" aria-controls="{{ unique_id('CMTV_CB_' . $criteriaType) }}">
+		{$tabName}
+	</a>
+</xf:macro>
+
+<xf:macro name="pane" arg-criteriaType="!" arg-criteriaInput="!" arg-criteria="!" arg-data="!">
+	<li class="{{ $active == ('CMTV_CB_' . $criteriaType) ? 'is-active' : '' }}" role="tabpanel" id="{{ unique_id('CMTV_CB_' . $criteriaType) }}">
+		<xf:macro name="criteria" 
+				  arg-criteriaType="{$criteriaType}" 
+				  arg-criteriaInput="{$criteriaInput}" 
+				  arg-criteria="{$criteria}" 
+				  arg-data="{$data}" />
+	</li>
+</xf:macro>
+
+<xf:macro name="criteria" arg-criteriaType="!" arg-criteriaInput="!" arg-criteria="!" arg-data="!">
+	<xf:css src="CMTV_CB_criteria.less" />
+
+	<xf:js prod="CMTV/CriteriaBuilder/checked-counter.min.js, CMTV/CriteriaBuilder/criteria.min.js" 
+		   dev="CMTV/CriteriaBuilder/checked-counter.js, CMTV/CriteriaBuilder/criteria.js" addon="CMTV/CriteriaBuilder" />
+	
+	<xf:set var="$criteriaData" value="{$data.CMTV_CB.{$criteriaType}}" />
+
+	<xf:if is="$criteriaData.criteria is not empty">
+		<xf:foreach loop="$criteriaData.categories" key="$categoryId" value="$category">
+			<xf:if is="$categoryId === 0">
+				<xf:set var="$categoryId" value="" />
+			</xf:if>
+
+			<xf:if is="{$criteriaData.criteria.{$categoryId}}">
+				<xf:macro name="category"
+						  arg-criteriaInput="{$criteriaInput}"
+						  arg-category="{$category}" 
+						  arg-categoryCriteria="{$criteriaData.criteria.{$categoryId}}"
+						  arg-criteria="{$criteria}"
+						  arg-data="{$data}" />
+			</xf:if>
+		</xf:foreach>
+	<xf:else />
+		<div class="blockMessage">{{ phrase('CMTV_CB_no_criteria_have_been_created_for_criteria_type_yet') }}</div>
+	</xf:if>
+</xf:macro>
+
+<xf:macro name="category" arg-criteriaInput="!" arg-category="!" arg-categoryCriteria="!" arg-criteria="!" arg-data="!">
+	<div class="criteria-category" data-xf-init="checked-counter" 
+		 data-hide-zero="true"
+		 data-checkbox=".criterion-checkbox:checkbox"
+		 data-counter-container=".selected-counter"
+		 data-counter-value=".counter">
+		
+		<h3 class="block-formSectionHeader category">
+			<span class="collapseTrigger collapseTrigger--block" data-xf-click="toggle" data-target="< :up:next">
+				<span class="block-formSectionHeader-aligner">
+					<xf:fa icon="{$category.icon}" class="icon" /><span class="title">{$category.title}</span>
+					<span class="selected-counter" data-xf-init="tooltip" title="{{ phrase('CMTV_CB_selected_criteria') }}">
+						<xf:fa icon="fa-check-square" /><span class="counter">999</span>
+					</span>
+				</span>
+			</span>
+		</h3>
+		<div class="criteria-container block-body block-body--collapsible">
+			<xf:foreach loop="$categoryCriteria" value="$criterion">
+				<xf:macro name="criterion"
+						  arg-criteriaInput="{$criteriaInput}"
+						  arg-criterion="{$criterion}"
+						  arg-criteria="{$criteria}"
+						  arg-data="{$data}" />
+			</xf:foreach>
+		</div>
+	</div>
+</xf:macro>
+
+<xf:macro name="criterion" arg-criteriaInput="!" arg-criterion="!" arg-criteria="!" arg-data="!">
+	<xf:set var="$criterionName" value="CMTV_CB_{$criterion.criterion_id}" />
+	<div class="criterion {{ $criteria.{$criterionName} ? 'selected' : '' }}" data-xf-init="criterion">
+		<xf:checkboxrow label="{$criterion.title}">
+			<xf:option name="{$criteriaInput}[{$criterionName}][rule]" value="{$criterionName}"
+					   selected="{$criteria.{$criterionName}}"
+					   class="criterion-checkbox"
+					   label="{$criterion.description}" />
+		</xf:checkboxrow>
+
+		<xf:if is="$criterion.params is not empty">
+			<hr class="formRowSep" />
+			
+			<div class="options">
+				<xf:foreach loop="$criterion.params" value="$param">
+					{$param.render($criteriaInput, $criterionName, $criteria, $data)|raw}
+				</xf:foreach>
+			</div>
+		</xf:if>
+	</div>
+
+	<hr class="formRowSep" />
+</xf:macro>

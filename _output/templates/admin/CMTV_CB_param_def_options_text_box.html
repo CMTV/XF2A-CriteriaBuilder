@@ -1,0 +1,11 @@
+<xf:numberboxrow name="options[max_length]" value="{$options.max_length}" label="{{ phrase('maximum_length') }}" min="1" />
+
+<xf:textboxrow name="options[default]" value="{$options.default}" label="{{ phrase('default_value') }}" />
+
+<xf:textboxrow name="options[pre_icon]" value="{$options.pre_icon}" label="{{ phrase('icon') }}" />
+
+<xf:checkboxrow label="{{ phrase('CMTV_CB_username_autocomplete') }}">
+	<xf:option name="options[username_autocomplete]" checked="{$options.username_autocomplete}" label="{{ phrase('enabled') }}" />
+</xf:checkboxrow>
+
+<xf:textboxrow name="options[regex]" value="{$options.regex}" label="{{ phrase('regular_expression') }}" />

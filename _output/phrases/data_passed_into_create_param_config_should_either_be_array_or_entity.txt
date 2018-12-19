@@ -1,0 +1,1 @@
+Data passed into create ParamConfig should either be an array or Entity

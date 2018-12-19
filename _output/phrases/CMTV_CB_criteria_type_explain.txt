@@ -1,0 +1,1 @@
+Defines where this criterion will be available for selection. For example, "User criteria" is used for both trophies and notices. "Page criteria" is only available for notices. You can't select "Page criteria" criteria when creating a trophy.

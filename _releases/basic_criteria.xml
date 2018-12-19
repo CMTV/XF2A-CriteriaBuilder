@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<criteria_export>
+  <categories>
+    <category id="CB_communication" icon="fa-comments" display_order="10" title="Communication"/>
+    <category id="CB_bookmarks" icon="fa-bookmark" display_order="30" title="Bookmarks"/>
+  </categories>
+  <criteria>
+    <criterion id="CB_messages_posted" criteria_type="user" category_id="CB_communication" display_order="10" title="Messages posted">
+      <description><![CDATA[User has posted at least X messages]]></description>
+      <code><![CDATA[$selectedStates = [];
+	
+if ($get('is_visible')) $selectedStates[] = 'visible';
+if ($get('is_deleted')) $selectedStates[] = 'deleted';
+if ($get('is_moderated')) $selectedStates[] = 'moderated';
+
+$selectedStates = implode($selectedStates, "', '");
+
+if ($get('forums') === 'all')
+{	
+	$query = "SELECT COUNT(*) FROM `xf_post` WHERE `user_id` = ? AND `message_state` IN ('" . $selectedStates . "')";
+}
+else
+{
+	$forumIds = implode($get('forums'), "', '");
+	
+	$join = "INNER JOIN `xf_thread` AS `t` ON `p`.`thread_id` = `t`.`thread_id`";
+	$where = "WHERE `p`.`user_id` = ? AND `p`.`message_state` IN ('" . $selectedStates . "') AND `t`.`node_id` IN ('" . $forumIds . "')";
+	$query = "SELECT COUNT(*) FROM `xf_post` AS `p` {$join} {$where}";
+}
+
+$messages = $db->query($query, [$user->user_id])->fetchAllColumn()[0];
+
+return $messages >= $get('messages');]]></code>
+    </criterion>
+    <criterion id="CB_messages_posted_thread" criteria_type="user" category_id="CB_communication" display_order="20" title="Messages posted in thread">
+      <description><![CDATA[User has posted at least X messages in Y thread]]></description>
+      <code><![CDATA[$selectedStates = [];
+	
+if ($get('is_visible')) $selectedStates[] = 'visible';
+if ($get('is_deleted')) $selectedStates[] = 'deleted';
+if ($get('is_moderated')) $selectedStates[] = 'moderated';
+
+$selectedStates = implode($selectedStates, "', '");
+
+$query = "SELECT COUNT(*) FROM `xf_post` WHERE `user_id` = ? AND `thread_id` = ? AND `message_state` IN ('" . $selectedStates . "')";
+
+$messages = $db->query($query, [$user->user_id, $get('thread_id')])->fetchAllColumn()[0];
+
+return $messages >= $get('messages');]]></code>
+    </criterion>
+    <criterion id="CB_threads_created" criteria_type="user" category_id="CB_communication" display_order="30" title="Threads created">
+      <description><![CDATA[User has created at least X threads]]></description>
+      <code><![CDATA[$selectedStates = [];
+	
+if ($get('is_visible')) $selectedStates[] = 'visible';
+if ($get('is_deleted')) $selectedStates[] = 'deleted';
+if ($get('is_moderated')) $selectedStates[] = 'moderated';
+
+$selectedStates = implode($selectedStates, "', '");
+
+$whereStates = "AND `discussion_state` IN ('" . $selectedStates . "')";
+$whereForums = $get('forums') === 'all' ? '' : "AND `node_id` IN ('" . implode($get('forums'), "', '") . "')";
+$wherePrefixes = $get('prefixes') === [] ? '' : "AND `prefix_id` IN ('" . implode($get('prefixes'), "', '") . "')";
+
+$query = "SELECT COUNT(*) FROM `xf_thread` WHERE `user_id` = ? {$whereStates} {$whereForums} {$wherePrefixes}";
+
+$threads = $db->query($query, [$user->user_id])->fetchAllColumn()[0];
+dump($threads);
+return $threads >= $get('threads');]]></code>
+    </criterion>
+    <criterion id="CB_bookmarks_added" criteria_type="user" category_id="CB_bookmarks" display_order="10" title="Bookmarks added">
+      <description><![CDATA[User has added at least X bookmarks]]></description>
+      <code><![CDATA[$whereContentTypes = '';
+
+if ($get('content_type') !== '')
+{
+	$contentTypes = explode(', ', $get('content_type'));
+	$whereContentTypes = "AND `content_type` IN ('" . implode($contentTypes, "', '") . "')";
+}
+
+$query = "SELECT COUNT(*) FROM `xf_bookmark_item` WHERE `user_id` = ? {$whereContentTypes}";
+
+$bookmarks = $db->query($query, [$user->user_id])->fetchAllColumn()[0];
+
+return $bookmarks >= $get('bookmarks');]]></code>
+    </criterion>
+  </criteria>
+  <params>
+    <param id="messages" criterion_id="CB_messages_posted" definition_id="number_box" display_order="10" title="Messages posted">
+      <options><![CDATA[{"step":1,"default":0,"max":"","min":0}]]></options>
+    </param>
+    <param id="forums" criterion_id="CB_messages_posted" definition_id="forum_select" display_order="20" title="Forums">
+      <options><![CDATA[{"multiselect":true}]]></options>
+    </param>
+    <param id="is_visible" criterion_id="CB_messages_posted" definition_id="switcher" display_order="30" title="Visible">
+      <options><![CDATA[{"enabled":true}]]></options>
+    </param>
+    <param id="is_deleted" criterion_id="CB_messages_posted" definition_id="switcher" display_order="40" title="Deleted">
+      <options><![CDATA[{"enabled":false}]]></options>
+    </param>
+    <param id="is_moderated" criterion_id="CB_messages_posted" definition_id="switcher" display_order="50" title="Moderated">
+      <options><![CDATA[{"enabled":false}]]></options>
+    </param>
+    <param id="messages" criterion_id="CB_messages_posted_thread" definition_id="number_box" display_order="60" title="Messages posted">
+      <options><![CDATA[{"step":1,"default":0,"max":"","min":0}]]></options>
+    </param>
+    <param id="thread_id" criterion_id="CB_messages_posted_thread" definition_id="number_box" display_order="70" title="Thread ID">
+      <options><![CDATA[{"step":1,"default":1,"max":"","min":1}]]></options>
+    </param>
+    <param id="is_visible" criterion_id="CB_messages_posted_thread" definition_id="switcher" display_order="80" title="Visible">
+      <options><![CDATA[{"enabled":true}]]></options>
+    </param>
+    <param id="is_deleted" criterion_id="CB_messages_posted_thread" definition_id="switcher" display_order="90" title="Deleted">
+      <options><![CDATA[{"enabled":false}]]></options>
+    </param>
+    <param id="is_moderated" criterion_id="CB_messages_posted_thread" definition_id="switcher" display_order="100" title="Moderated">
+      <options><![CDATA[{"enabled":false}]]></options>
+    </param>
+    <param id="threads" criterion_id="CB_threads_created" definition_id="number_box" display_order="110" title="Threads created">
+      <options><![CDATA[{"step":1,"default":0,"max":"","min":0}]]></options>
+    </param>
+    <param id="forums" criterion_id="CB_threads_created" definition_id="forum_select" display_order="120" title="Forums">
+      <options><![CDATA[{"multiselect":true}]]></options>
+    </param>
+    <param id="prefixes" criterion_id="CB_threads_created" definition_id="thread_prefix_select" display_order="130" title="With prefix"/>
+    <param id="is_visible" criterion_id="CB_threads_created" definition_id="switcher" display_order="140" title="Visible">
+      <options><![CDATA[{"enabled":true}]]></options>
+    </param>
+    <param id="is_deleted" criterion_id="CB_threads_created" definition_id="switcher" display_order="150" title="Deleted">
+      <options><![CDATA[{"enabled":false}]]></options>
+    </param>
+    <param id="is_moderated" criterion_id="CB_threads_created" definition_id="switcher" display_order="160" title="Moderated">
+      <options><![CDATA[{"enabled":false}]]></options>
+    </param>
+    <param id="bookmarks" criterion_id="CB_bookmarks_added" definition_id="number_box" display_order="170" title="Bookmarks added">
+      <options><![CDATA[{"step":1,"default":0,"max":"","min":0}]]></options>
+    </param>
+    <param id="content_type" criterion_id="CB_bookmarks_added" definition_id="text_box" display_order="180" title="Content type">
+      <options><![CDATA[{"max_length":50,"default":"","pre_icon":"","username_autocomplete":false,"regex":""}]]></options>
+    </param>
+  </params>
+</criteria_export>

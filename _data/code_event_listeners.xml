@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<code_event_listeners>
+  <listener event_id="criteria_page" execute_order="10" callback_class="CMTV\CriteriaBuilder\EventListener" callback_method="criteriaPage" active="1" description="Handling Criteria Builder page criteria"/>
+  <listener event_id="criteria_template_data" execute_order="10" callback_class="CMTV\CriteriaBuilder\EventListener" callback_method="criteriaTemplateData" active="1" description="Adding Criteria Builder data to pages with criteria"/>
+  <listener event_id="criteria_user" execute_order="10" callback_class="CMTV\CriteriaBuilder\EventListener" callback_method="criteriaUser" active="1" description="Handling Criteria Builder user criteria"/>
+</code_event_listeners>

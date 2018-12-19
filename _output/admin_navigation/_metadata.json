@@ -1,0 +1,23 @@
+{
+    "CMTV_CB.json": {
+        "hash": "28fccd775e08b3498be9b9181ac7c28f"
+    },
+    "CMTV_CB_categories.json": {
+        "hash": "cd983ee4f984b234bb7943029331f594"
+    },
+    "CMTV_CB_criteria.json": {
+        "hash": "d141a59af50299fcf5ddbc9d519d42b7"
+    },
+    "CMTV_CB_export.json": {
+        "hash": "38d67fc27979e38139c2f822fbac87e2"
+    },
+    "CMTV_CB_import.json": {
+        "hash": "c4074afe5bd401722f74b9a9922e907a"
+    },
+    "CMTV_CB_import_export.json": {
+        "hash": "8785063f7118400d8d92432b77fd0b78"
+    },
+    "CMTV_CB_params.json": {
+        "hash": "c005baaedb2b183a029a7c5ed7eb05a0"
+    }
+}

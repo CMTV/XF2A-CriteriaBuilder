@@ -1,0 +1,31 @@
+<xf:formrow label="{$paramTitle}">
+	<div class="inputGroup">
+		<xf:dateinput name="{$name}[ymd]" value="{$value.ymd}" />
+		<span class="inputGroup-text">
+			{{ phrase('criteria_time:') }}
+		</span>
+		<span class="inputGroup" dir="ltr">
+			<xf:select name="{$name}[hh]" value="{$value.hh}" class="input--inline input--autoSize">
+				<xf:foreach loop="$criteriaData.hours" value="$hour">
+					<xf:option value="{$hour}" label="{$hour}" />
+				</xf:foreach>
+			</xf:select>
+			<span class="inputGroup-text">:</span>
+			<xf:select name="{$name}[mm]" value="{$value.mm}" class="input--inline input--autoSize">
+				<xf:foreach loop="$criteriaData.minutes" value="$minute">
+					<xf:option value="{$minute}" label="{$minute}" />
+				</xf:foreach>
+			</xf:select>
+		</span>
+	</div>
+	<dfn class="inputChoices-explain inputChoices-explain--after">{{ phrase('criteria_leave_date_empty') }}</dfn>
+	<br>
+	<xf:radio name="{$name}[user_tz]" value="{{ $value.user_tz ?: 0 }}">
+		<xf:option value="1" label="{{ phrase('criteria_in_visitor_timezone') }}" />
+		<xf:option value="0" label="{{ phrase('criteria_in_selected_timezone:') }}">
+			<xf:select name="{$name}[timezone]" value="{{ $value.timezone ? $value.timezone : $visitor.timezone }}">
+				<xf:options source="{$criteriaData.timeZones}" />
+			</xf:select>
+		</xf:option>
+	</xf:radio>
+</xf:formrow>

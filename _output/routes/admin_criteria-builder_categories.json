@@ -1,0 +1,11 @@
+{
+    "route_type": "admin",
+    "route_prefix": "criteria-builder",
+    "sub_name": "categories",
+    "format": "categories/:str<category_id>/",
+    "build_class": "",
+    "build_method": "",
+    "controller": "CMTV\\CriteriaBuilder:Category",
+    "context": "CMTV_CB_categories",
+    "action_prefix": ""
+}

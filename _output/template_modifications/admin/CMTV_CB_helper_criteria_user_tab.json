@@ -1,0 +1,9 @@
+{
+    "template": "helper_criteria",
+    "description": "Adding \"[CB] User criteria\" tab",
+    "execution_order": 10,
+    "enabled": true,
+    "action": "str_replace",
+    "find": "<a class=\"tabs-tab{{ $active == 'user_field' ? ' is-active' : '' }}\"\n\t\t\trole=\"tab\" tabindex=\"0\" aria-controls=\"{{ unique_id('criteriaUserField') }}\">\n\t\t\t{{ phrase('custom_userfield_criteria') }}</a>",
+    "replace": "$0\n\n<xf:macro name=\"tab\" template=\"CMTV_CB_helper_criteria\"\n\t\t  arg-criteriaType=\"user\"\n\t\t  arg-tabName=\"{{ phrase('CMTV_CB_user_criteria') }}\" />"
+}

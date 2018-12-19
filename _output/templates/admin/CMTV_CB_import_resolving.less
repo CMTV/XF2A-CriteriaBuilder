@@ -1,0 +1,111 @@
+.criteria-new
+{
+	.criterion + .formRowSep
+	{
+		margin: 0;
+	}
+}
+
+.block-part
+{
+	&:not(:first-of-type)
+	{
+		border-top: @xf-borderSize solid @xf-borderColorLight;
+	}
+	
+	.block-header
+	{
+		.block-header-icon
+		{
+			width: 1.5em;
+		}
+		
+		.counter
+		{
+			position: relative;
+			top: -2px;
+
+			margin-left: 0.5em;
+			padding: 2px 4px;
+
+			background: @xf-contentBg;
+			border-radius: 3px;
+
+			font-size: @xf-fontSizeSmaller;
+		}
+
+		.help-icon
+		{
+			float: right;
+			
+			position: relative;
+			top: 4px;
+			right: 5px;
+		}
+	}
+	
+	.style(@textColor, @bgColor)
+	{
+		.block-header
+		{
+			background: linear-gradient(0deg, @bgColor, mix(@bgColor, @xf-contentBg, 50%));
+			color: @textColor;
+
+			.counter
+			{
+				border: @xf-borderSize solid mix(@textColor, @xf-contentBg, 50%);
+			}
+		}
+	}
+	
+	.checkboxStyle(@normalColor, @hoverColor)
+	{
+		.inherit-style i,
+		.inherit-style + i
+		{
+			color: @normalColor !important;
+			
+			&:hover, &:focus, &:active
+			{
+				color: @hoverColor !important;
+			}
+		}
+	}
+	
+	&--success
+	{
+		.style(@xf-successColor, @xf-successBg);
+		.checkboxStyle(@xf-successFeatureColor, @xf-successColor);
+	}
+	
+	&--warning
+	{
+		.style(@xf-warningColor, @xf-warningBg);
+		.checkboxStyle(@xf-warningFeatureColor, @xf-warningColor);
+	}
+	
+	&--error
+	{
+		.style(@xf-errorColor, @xf-errorBg);
+		.checkboxStyle(@xf-errorFeatureColor, @xf-errorColor);
+	}
+	
+	&--disabled
+	{
+		.style(@xf-textColorDimmed, @xf-borderColorFaint);
+		
+		.block-body
+		{
+			color: @xf-textColorDimmed;
+			background: @xf-contentAltBg;
+		}
+	}
+}
+
+.resolving-actions
+{
+	.button[type="submit"]
+	{
+		margin-left: @xf-paddingMedium;
+	}
+}

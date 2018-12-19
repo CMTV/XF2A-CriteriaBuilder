@@ -1,0 +1,35 @@
+<xf:if is="$category.isInsert()">
+	<xf:title>{{ phrase('add_category') }}</xf:title>
+<xf:else />
+	<xf:title>{{ phrase('edit_category:') }} {$category.title}</xf:title>
+</xf:if>
+
+<xf:pageaction if="$category.isUpdate()">
+	<xf:button href="{{ link('criteria-builder/categories/delete', $category) }}" icon="delete" overlay="true" />
+</xf:pageaction>
+
+<xf:form action="{{ link('criteria-builder/categories/save', $category) }}" class="block" ajax="true">
+	<div class="block-container">
+		<div class="block-body">
+			
+			<xf:macro template="CMTV_CB_persistent_id_macros" name="persistent_id"
+					  arg-id="{$category.category_id}" arg-label="{{ phrase('CMTV_CB_category_id') }}"
+					  arg-name="category_id" arg-maxLength="{{ max_length($category, 'category_id') }}"
+					  arg-editable="{$category.isInsert()}" />
+			
+			<hr class="formRowSep" />
+			
+			<xf:textboxrow name="title" value="{{ $category.category_id ? $category.MasterTitle.phrase_text : '' }}"
+						   label="{{ phrase('title') }}" />
+
+			<xf:macro template="display_order_macros" name="row"
+					  arg-value="{$category.display_order}" />
+			
+			<xf:textboxrow name="icon" value="{{ $category.exists() ? $category.icon : '' }}"
+						   maxlength="{{ max_length($category, 'icon') }}" fa="{{ $category.icon ?: '' }}"
+						   label="{{ phrase('CMTV_CB_icon') }}" explain="{{ phrase('CMTV_CB_icon_explain') }}" />
+		</div>
+		
+		<xf:submitrow sticky="true" icon="save" />
+	</div>
+</xf:form>

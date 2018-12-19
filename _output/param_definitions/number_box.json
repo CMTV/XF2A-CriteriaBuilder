@@ -1,0 +1,5 @@
+{
+    "definition_class": "\\CMTV\\CriteriaBuilder\\Param\\NumberBox",
+    "icon": "fa-sort-numeric-down",
+    "display_order": 20
+}

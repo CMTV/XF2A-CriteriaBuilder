@@ -1,0 +1,9 @@
+{
+    "parent_navigation_id": "CMTV_CB",
+    "display_order": 300,
+    "link": "criteria-builder/params/definitions",
+    "icon": "",
+    "admin_permission_id": "CMTV_CB_params",
+    "debug_only": true,
+    "hide_no_children": false
+}

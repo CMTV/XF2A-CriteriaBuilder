@@ -1,0 +1,9 @@
+{
+    "template": "tools_rebuild",
+    "description": "Criteria Builder rebuild tools",
+    "execution_order": 10,
+    "enabled": true,
+    "action": "str_replace",
+    "find": "<!--[XF:rebuild_bottom]-->",
+    "replace": "<xf:include template=\"CMTV_CB_tools_rebuild\" />\n\n$0"
+}

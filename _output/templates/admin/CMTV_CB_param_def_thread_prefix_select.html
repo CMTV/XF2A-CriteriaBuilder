@@ -1,0 +1,26 @@
+<xf:if is="$prefixesGrouped is not empty">
+	<xf:checkboxrow name="{$name}" listclass="prefix"
+					data-xf-init="checkbox-select-disabler"
+					data-select="select[name=default_prefix_id]"
+					label="{$paramTitle}">
+
+		<xf:foreach loop="$prefixGroups" key="$prefixGroupId" value="$prefixGroup" if="{$prefixesGrouped.{$prefixGroupId}}">
+
+			<xf:optgroup check-all="true" listclass="listColumns"
+						 label="{{ $prefixGroupId ? $prefixGroup.title : phrase('ungrouped') }}">
+
+				<xf:foreach loop="{$prefixesGrouped.{$prefixGroupId}}" key="$prefixId" value="$prefix">
+					<xf:option name="{$name}[{$prefixId}]" selected="{$value.{$prefixId}}">
+						<xf:label><span class="label {$prefix.css_class}">{$prefix.title}</span></xf:label>
+					</xf:option>
+				</xf:foreach>
+			</xf:optgroup>
+		</xf:foreach>
+	</xf:checkboxrow>
+
+	<xf:else />
+
+	<xf:formrow label="{{ phrase('available_prefixes') }}">
+		{{ phrase('none')|parens }}
+	</xf:formrow>
+</xf:if>

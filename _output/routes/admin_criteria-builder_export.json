@@ -1,0 +1,11 @@
+{
+    "route_type": "admin",
+    "route_prefix": "criteria-builder",
+    "sub_name": "export",
+    "format": "export/",
+    "build_class": "",
+    "build_method": "",
+    "controller": "CMTV\\CriteriaBuilder:Export",
+    "context": "CMTV_CB_export",
+    "action_prefix": ""
+}

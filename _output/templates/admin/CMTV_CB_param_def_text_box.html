@@ -1,0 +1,7 @@
+<xf:textboxrow name="{$name}"
+			   value="{{ $criterionSelected ? $value : $options.default }}"
+			   label="{$paramTitle}" 
+			   fa="{$options.pre_icon}" 
+			   maxlength="{$options.max_length}" 
+			   pattern="{$options.regex}"
+			   data-xf-init="{{ $options.username_autocomplete ? 'auto-complete' : '' }}" />
