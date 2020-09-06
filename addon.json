@@ -2,8 +2,8 @@
     "legacy_addon_id": "",
     "title": "Criteria Builder",
     "description": "Import/export/write custom criteria for trophies, notices and user group promotion. NO LIMITS!",
-    "version_id": 1000070,
-    "version_string": "1.0.0",
+    "version_id": 1000170,
+    "version_string": "1.0.1",
     "dev": "CMTV",
     "dev_url": "https://xenforo.com/community/members/cmtv.162075/",
     "faq_url": "",
@@ -13,8 +13,14 @@
         "Support me!": "https://www.patreon.com/cmtv"
     },
     "require": {
-        "XF": [2010035, "XenForo 2.1.0 Beta 5 and above"],
-        "php": ["7.0.0", "PHP 7+"]
+        "XF": [
+            2010035,
+            "XenForo 2.1.0 Beta 5 and above"
+        ],
+        "php": [
+            "7.0.0",
+            "PHP 7+"
+        ]
     },
     "icon": "icon.png"
 }

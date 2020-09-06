@@ -82,7 +82,7 @@ class ParamDefinition extends Entity
 
         $structure->relations = [
             'AddOn' => [
-                'entity' => 'XF:Addon',
+                'entity' => 'XF:AddOn',
                 'type' => self::TO_ONE,
                 'conditions' => 'addon_id',
                 'primary' => true
@@ -266,7 +266,7 @@ class ParamDefinition extends Entity
                 return $title ? $this->getTitlePhraseName() : $this->getDescriptionPhraseName();
             }, 'save');
             $phrase->language_id = 0;
-            $phrase->addon_id = $this->_getDeferredValue(function () { return $this->addon_id; });
+            $phrase->addon_id = ''; //$this->_getDeferredValue(function () { return $this->addon_id; });
         }
 
         return $phrase;
